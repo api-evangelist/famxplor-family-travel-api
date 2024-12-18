@@ -17,7 +17,7 @@ The First API 100% Dedicated to Family Travel. Designed for developers, travel a
 
 ## Timestamps
 
-- **Created:** 2024-12-18T00:00:00.000Z 
+- **Created:** 2024-12-18 
 - **Modified:** 2024-12-18 
 
 ## APIs
