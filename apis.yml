@@ -4,9 +4,9 @@ apis:
   - aid: famxplor-family-travel-api:famxplor-family-travel-api
     name: Famxplor Family Travel API
     tags:
-      - Travel
-      - Family
       - Activities
+      - Family
+      - Travel
     humanURL: https://famxplor.com/
     properties:
       - url: https://famxplor.com/api
@@ -19,9 +19,9 @@ apis:
       ideas, and engaging content that enhances user experiences and engagement.
 name: Famxplor Family Travel API
 tags:
-  - Travel
-  - Family
   - Activities
+  - Family
+  - Travel
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
