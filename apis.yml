@@ -36,7 +36,7 @@ apis:
         url: https://famxplor.com/api
       - type: Pricing
         url: https://famxplor.com/pricing
-      - type: Sign Up
+      - type: SignUp
         url: https://famxplor.com/login
 common:
   - type: Website
@@ -45,13 +45,13 @@ common:
     url: https://famxplor.com/api
   - type: Pricing
     url: https://famxplor.com/pricing
-  - type: Sign Up
+  - type: SignUp
     url: https://famxplor.com/login
   - type: Blog
     url: https://famxplor.com/blog
-  - type: Privacy Policy
+  - type: PrivacyPolicy
     url: https://famxplor.com/legal/privacy-policy/
-  - type: Terms of Service
+  - type: TermsOfService
     url: https://famxplor.com/legal/terms-of-service/
 description: >-
   The First API 100% Dedicated to Family Travel. Designed for developers, travel
