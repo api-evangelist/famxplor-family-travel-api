@@ -1,7 +1,7 @@
 aid: famxplor-family-travel-api
 name: Famxplor Family Travel API
 url: https://raw.githubusercontent.com/api-evangelist/famxplor-family-travel-api/refs/heads/main/apis.yml
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 type: Index
 access: 3rd-Party
 position: Consumer
@@ -26,7 +26,7 @@ apis:
       The API is RESTful and is compatible with AI tools and MCP (Model Context
       Protocol) servers.
     humanURL: https://famxplor.com/
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Activities
       - Family
