@@ -39,6 +39,8 @@ apis:
       - type: Signup
         url: https://famxplor.com/login
 common:
+  - type: DomainSecurity
+    url: security/famxplor-family-travel-api-domain-security.yml
   - type: Website
     url: https://famxplor.com/
   - type: Documentation
