@@ -1,7 +1,19 @@
 aid: famxplor-family-travel-api
 name: Famxplor Family Travel API
 url: https://raw.githubusercontent.com/api-evangelist/famxplor-family-travel-api/refs/heads/main/apis.yml
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/famxplor-family-travel-api.png
 type: Index
 access: 3rd-Party
 position: Consumer
