@@ -19,7 +19,7 @@ access: 3rd-Party
 position: Consumer
 created: '2024-12-18'
 modified: '2026-04-28'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 tags:
   - Activities
   - Family
