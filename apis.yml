@@ -27,7 +27,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/famxplor-family-travel-api.png
 type: Index
 access: 3rd-Party
-position: Consumer
+position: Consuming
 created: '2024-12-18'
 modified: '2026-04-28'
 specificationVersion: '0.23'
