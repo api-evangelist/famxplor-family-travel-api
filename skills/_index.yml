@@ -1,0 +1,27 @@
+generated: '2026-09-07'
+method: generated
+source: openapi/famxplor-family-travel-api-openapi.yml
+note: >-
+  Authored by API Evangelist from the provider's own OpenAPI 3.1.0 document. Famxplor
+  publishes no AGENTS.md or skill files of its own. Every operationId below was grepped from
+  openapi/famxplor-family-travel-api-openapi.yml and exists verbatim in the contract.
+skills:
+  - file: famxplor-family-travel-api-find-family-activities.md
+    name: Find family activities near a place
+    api: openapi/famxplor-family-travel-api-openapi.yml
+    operations:
+      - nearest_activities_v1_nearest_activities_post
+      - activity_details_v1_activities_details__activity_id__get
+  - file: famxplor-family-travel-api-plan-a-family-route.md
+    name: Plan a family route between stops
+    api: openapi/famxplor-family-travel-api-openapi.yml
+    operations:
+      - nearest_activities_v1_nearest_activities_post
+      - travel_time_v1_travel_time_post
+  - file: famxplor-family-travel-api-source-family-testimony.md
+    name: Source real family testimony for a destination
+    api: openapi/famxplor-family-travel-api-openapi.yml
+    operations:
+      - nearest_posts_v1_nearest_posts_post
+      - nearest_activities_v1_nearest_activities_post
+      - activity_details_v1_activities_details__activity_id__get

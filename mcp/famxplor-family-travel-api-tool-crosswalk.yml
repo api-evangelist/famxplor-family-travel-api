@@ -1,0 +1,58 @@
+generated: '2026-09-07'
+method: derived
+source:
+  - mcp/famxplor-family-travel-api-mcp.yml
+  - openapi/famxplor-family-travel-api-openapi.yml
+surfaces:
+  openapi:
+    file: openapi/famxplor-family-travel-api-openapi.yml
+    url: https://api.famxplor.com/openapi.json
+    status: public, unauthenticated, parses as OpenAPI 3.1.0
+    operations: 4
+  mcp:
+    repo: https://github.com/alt250/famxplor-family-travel-mcp-server
+    endpoint: null
+    gated: false
+    note: >-
+      tools/list could not be called — no hosted endpoint exists. The tool set was read
+      directly from server.py, which is stronger evidence than a live tools/list: the
+      inputSchema below is the actual Python signature, not a guess.
+  graphql:
+    endpoint: null
+    note: 'famxplor.com/graphql and api.famxplor.com/graphql both 404'
+crosswalk:
+  - tool: search_family_activities
+    category: discovery
+    rest:
+      - nearest_activities_v1_nearest_activities_post
+    binding: rest
+    confidence: high
+    note: >-
+      Verified in source: the tool POSTs {api_base}/v1/nearest-activities with
+      {lat, lon, max_distance: max_dist}. Its real input contract is NearestInput plus one
+      extra parameter (`user_query`) that the tool accepts and never transmits.
+mcp_only: []
+rest_only:
+  - operation: nearest_posts_v1_nearest_posts_post
+    capability: Find family travel blog posts near a coordinate
+    reason: no MCP tool wraps it
+  - operation: travel_time_v1_travel_time_post
+    capability: Route travel time and distance across 2+ waypoints
+    reason: no MCP tool wraps it
+  - operation: activity_details_v1_activities_details__activity_id__get
+    capability: >-
+      Full activity record including country/region/city, description and the embedded
+      family posts (what_did / enjoyed)
+    reason: >-
+      no MCP tool wraps it — and the one tool that exists discards the activity id in its
+      string return value, so an agent could not call it even if a tool were added
+coverage:
+  tools_named: 1
+  tools_bound: 1
+  mcp_only: 0
+  rest_operations_total: 4
+  rest_operations_with_a_tool: 1
+  rest_coverage_pct: 25.0
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -4,10 +4,19 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Famxplor Family Travel API
 providerId: famxplor-family-travel-api
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-07'
+generated: '2026-09-07'
+method: searched
+source: https://famxplor.com/pricing
+probe:
+  documented: https://famxplor.com/pricing
+  observed: 'POST https://api.famxplor.com/v1/nearest-activities (unauthenticated), 2026-09-07'
+description: >-
+  Rate limits for the Famxplor Family Travel API as the provider actually publishes them.
+  This REPLACES the 2026-05-04 bulk-sweep scaffold, which asserted X-RateLimit-* response
+  headers, per-minute ceilings, burst allowances and a 429 code that Famxplor has never
+  documented and does not return. What the provider genuinely publishes is a MONTHLY CALL
+  QUOTA per plan and nothing else.
 tags:
   - Activities
   - Family
@@ -16,77 +25,76 @@ tags:
   - MCP
   - Rate Limiting
   - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Famxplor Family Travel API API surface. Captures
-  per-tier quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values
-  to be replaced with published provider limits.
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+  note: >-
+    No rate-limit headers are documented, and none were returned on a live unauthenticated
+    request — the response carried only content-type, date, server (uvicorn) and
+    content-length. A running agent therefore has NO runtime signal of how much of its
+    monthly quota remains; it can only count its own calls.
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+  throttled: null
+  quotaExceeded: null
+  note: >-
+    Undocumented. The OpenAPI declares no 429 on any operation and the pricing page does not
+    say whether an exhausted quota returns an error, throttles, or bills as overage.
+limit_count: 4
 limits:
-  - tier: free
-    name: Free Tier Default
+  - tier: starter
+    name: Starter monthly quota
     scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Famxplor Family Travel API
-  - tier: free
-    name: Free Tier Monthly Quota
+    metric: requests_per_month
+    limit: 200
+    timeFrame: month
+    price: '4.99 USD/month'
+    source: https://famxplor.com/pricing
+    applies: [Famxplor Family Travel API]
+  - tier: pro
+    name: Pro monthly quota
     scope: api-key
     metric: requests_per_month
     limit: 1000
     timeFrame: month
-    applies:
-      - Famxplor Family Travel API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Famxplor Family Travel API
-  - tier: professional
-    name: Professional Tier Monthly Quota
+    price: '24.99 USD/month'
+    source: https://famxplor.com/pricing
+    applies: [Famxplor Family Travel API]
+  - tier: business
+    name: Business monthly quota
     scope: api-key
     metric: requests_per_month
-    limit: 100000
+    limit: 5000
     timeFrame: month
-    applies:
-      - Famxplor Family Travel API
+    price: '124.99 USD/month'
+    source: https://famxplor.com/pricing
+    applies: [Famxplor Family Travel API]
   - tier: enterprise
-    name: Enterprise Negotiated Limit
+    name: Enterprise negotiated volume
     scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Famxplor Family Travel API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    metric: requests_per_month
+    limit: null
+    timeFrame: month
+    price: custom
+    source: https://famxplor.com/pricing
+    note: '"Tailored API Call Volume" — not published'
+    applies: [Famxplor Family Travel API]
+response_size_limits:
+  - operation: nearest_posts_v1_nearest_posts_post
+    max_results: 100
+    source: 'OpenAPI description — "Maximum results per request: 100 posts."'
+  - operation: nearest_activities_v1_nearest_activities_post
+    max_results: 100
+    source: 'OpenAPI description — "Maximum results per request: 100 activities."'
+input_limits:
+  - parameter: max_distance
+    max: 100000
+    unit: metres
+    default: 1000
+    source: '#/components/schemas/NearestInput'
+policies: []
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

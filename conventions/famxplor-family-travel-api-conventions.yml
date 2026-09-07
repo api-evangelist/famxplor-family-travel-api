@@ -1,0 +1,105 @@
+generated: '2026-09-07'
+method: searched
+source: https://api.famxplor.com/openapi.json
+docs: https://api.famxplor.com/redoc
+summary: >-
+  Cross-cutting request/response semantics for the Famxplor Family Travel API, read from
+  the provider's own OpenAPI 3.1.0 document (info.description carries the whole developer
+  guide) and confirmed against live unauthenticated probes of api.famxplor.com.
+authentication:
+  style: api-key-header
+  header: api-key
+  detail: see authentication/famxplor-family-travel-api-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  spec_version: 1.1.7
+  detail: >-
+    Every operation is under /v1/. info.version in the OpenAPI is 1.1.7 and moves
+    independently of the URI version. No version header, no dated version train, and no
+    published version policy.
+idempotency:
+  coverage: none
+  supported: false
+  header: null
+  detail: >-
+    No idempotency-key mechanism is documented or present in the contract. Three of the
+    four operations are POSTs (/v1/nearest-posts, /v1/nearest-activities, /v1/travel-time)
+    but all three are QUERY operations — POST is used to carry a JSON coordinate body, not
+    to create or mutate a resource, and the responses contain no created identifiers. The
+    fourth operation is a GET. Replay is therefore harmless by construction rather than by
+    contract; there is nothing an agent could double-fire.
+reversibility:
+  grade: na
+  applicable: false
+  detail: >-
+    The published surface has no write, delete or state-changing operation, so there is
+    nothing to reverse. No cancel/refund/void/undo/restore operation exists in the spec and
+    the docs state no retention or reversal window. Recorded as inapplicable, not as absent.
+  operations_reviewed: 4
+  write_operations: 0
+dry_run:
+  supported: na
+  detail: Read-only surface — every request already commits nothing.
+pagination:
+  style: none
+  detail: >-
+    Not paginated. The two search operations cap results server-side instead — the spec
+    states "Maximum results per request: 100 posts" and "Maximum results per request: 100
+    activities". There is no page/cursor/offset parameter, no next-link, and no total count
+    in the response envelope, so a caller cannot reach beyond the first 100 matches for a
+    coordinate and radius.
+  limits:
+    nearest-posts: 100
+    nearest-activities: 100
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  supported: false
+request_tracing:
+  request_id_header: null
+  detail: >-
+    No request-id / correlation header is documented, and none was returned on the live
+    probes (response headers were content-type, date, server: uvicorn, content-length only).
+    An agent has nothing to quote in a support request.
+content_negotiation:
+  request: application/json
+  response: application/json
+  language:
+    header: Accept-Language
+    format: two-letter ISO 639 code (e.g. `en`, `fr`)
+    default: en
+    fallback: >-
+      "If the specified language is not available, results will be returned in English."
+    detail: >-
+      The one genuinely agent-useful convention this API publishes: localized results are
+      selected with a standard HTTP header rather than a bespoke query parameter.
+forward_compatibility:
+  rule: >-
+    "Unknown fields in responses should be ignored. This allows introducing new properties
+    while keeping existing code functional." — stated verbatim in info.description.
+error_envelope:
+  shape: '{"detail": <string | array of ValidationError>}'
+  format: not-rfc9457
+  detail: >-
+    FastAPI's default envelope. A 403 and a 404 return `detail` as a string; a 422 returns
+    `detail` as an array of {loc, msg, type} ValidationError objects. The same key therefore
+    holds two different types depending on status, which an agent must branch on.
+  see: errors/famxplor-family-travel-api-problem-types.yml
+rate_limit_signaling:
+  headers: none observed
+  detail: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header was returned on live probes, and
+    none is documented. Plan quotas are published as monthly call ceilings on the pricing
+    page only — a runtime consumer cannot see how much of its quota remains.
+  see: rate-limits/famxplor-family-travel-api-rate-limits.yml
+cross_links:
+  errors: errors/famxplor-family-travel-api-problem-types.yml
+  lifecycle: lifecycle/famxplor-family-travel-api-lifecycle.yml
+  authentication: authentication/famxplor-family-travel-api-authentication.yml
+  rate_limits: rate-limits/famxplor-family-travel-api-rate-limits.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

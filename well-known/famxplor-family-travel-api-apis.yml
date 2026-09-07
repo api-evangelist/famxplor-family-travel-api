@@ -1,0 +1,43 @@
+# spec: https://github.com/apis-json/api-json/blob/develop/spec/apisjson_0.19.txt
+aid: famxplor
+name: Famxplor Family Travel API
+type: Index
+description: |-
+   The First API 100% Dedicated to Family Travel.
+   Designed for developers, travel apps and businesses, the Famxplor API delivers personalized, family-focused recommendations tested and loved by real families.
+   Seamlessly integrate to provide location-based activities, global travel ideas, and engaging content that enhances user experiences and engagement.
+image: https://famxplor.com/logo.jpg
+tags:
+- Travel
+- Family Travel
+- API
+created: '2024-12-18'
+modified: '2024-12-18'
+url: http://famxplor.com/apis.yml
+specificationVersion: '0.19'
+apis:
+  - aid: famxplor:family-travel-api
+    name: "Famxplor Family Travel API"
+    description: >
+      The Famxplor Family Travel API provides seamless access to a growing collection
+      of curated family travel activities worldwide. It enables developers, travel
+      platforms, and businesses to enhance their offerings with family-friendly
+      content, including kid-friendly travel suggestions.
+    image: "https://famxplor.com/logo.jpg"
+    humanURL: "https://famxplor.com/api"
+    baseURL: "https://api.famxplor.com"
+    tags:
+      - Family Travel
+      - Kids Activities
+      - Family-Friendly
+      - Curated Content
+      - Things To Do
+      - Cities
+      - Countries
+    properties:
+      - type: Documentation
+        url: "https://api.famxplor.com/redoc"
+maintainers:
+  - FN: Famxplor
+    email: hello@famxplor.com
+    x-twitter: FamXplor

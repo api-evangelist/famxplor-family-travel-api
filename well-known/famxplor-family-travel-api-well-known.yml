@@ -1,0 +1,120 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  Direct HTTP probes of the RFC 8615 well-known path list plus the APIs.json root
+  locations, run 2026-09-07 against every host this record knows.
+notes: >-
+  Every /.well-known/ path 404s on all three hosts, so NO WellKnown and NO SecurityTxt
+  pointer is emitted — the probe records an absence, not a presence. The one real
+  document found is the provider's own APIs.json-spec index served at the domain root
+  (https://famxplor.com/apis.yml, HTTP 200, text/yaml), which parses and carries both
+  `apis` and `specificationVersion: '0.19'`. That is recorded here and wired into
+  apis.yml as `type: APIsYAML`.
+path_echo_control: passed
+hosts:
+  - host: https://famxplor.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/api-catalog.json
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/aauth-resource.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/apis.json
+        status: 404
+      - path: /apis.json
+        status: 404
+      - path: /apis.yml
+        status: 200
+        file: famxplor-family-travel-api-apis.yml
+        note: >-
+          Real APIs.json 0.19 index, first-party. Declares aid famxplor,
+          apis[0].baseURL https://api.famxplor.com and a Documentation property
+          pointing at https://api.famxplor.com/redoc. Maintainer hello@famxplor.com.
+      - path: /.well-known/famxplor-negative-control-7f3ab91c.json
+        status: 404
+        note: negative control — correctly 404s, so this host is not a path-echoing catch-all
+  - host: https://www.famxplor.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/api-catalog.json
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/aauth-resource.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /.well-known/famxplor-negative-control-7f3ab91c.json
+        status: 404
+        note: negative control — correctly 404s
+  - host: https://api.famxplor.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/api-catalog.json
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/ucp.json
+        status: 404
+      - path: /.well-known/acp.json
+        status: 404
+      - path: /.well-known/aauth-resource.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /apis.json
+        status: 404
+      - path: /apis.yml
+        status: 404
+      - path: /.well-known/famxplor-negative-control-7f3ab91c.json
+        status: 404
+        note: negative control — correctly 404s (FastAPI returns {"detail":"Not Found"})
+hit_count: 1
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

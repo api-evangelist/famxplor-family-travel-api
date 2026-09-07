@@ -1,0 +1,56 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Famxplor Family Travel API
+  version: 1.0.0
+x-provenance:
+  generated: '2026-09-07'
+  method: generated
+  source: openapi/famxplor-family-travel-api-openapi.yml
+  note: >-
+    Enhancements API Evangelist adds on top of the provider's document. The harvested
+    original at openapi/_original/famxplor-family-travel-api-openapi.json is never mutated.
+    The servers[] action below is the load-bearing one: the served document declares no
+    servers block at all, and the host comes from the provider's OWN APIs.json index at
+    https://famxplor.com/apis.yml (apis[0].baseURL), not from a guess at the domain.
+extends: openapi/famxplor-family-travel-api-openapi.yml
+actions:
+  - target: $
+    description: Add the base URL the provider declares in its own apis.yml index.
+    update:
+      servers:
+        - url: https://api.famxplor.com
+          description: Production — declared in https://famxplor.com/apis.yml
+  - target: $.info
+    description: Record provenance and the artifacts derived from this contract.
+    update:
+      x-apievangelist-slug: famxplor-family-travel-api
+      x-apievangelist-harvested: '2026-09-07'
+      x-apievangelist-source: https://api.famxplor.com/openapi.json
+      x-apievangelist-artifacts:
+        conventions: conventions/famxplor-family-travel-api-conventions.yml
+        errors: errors/famxplor-family-travel-api-problem-types.yml
+        data_model: data-model/famxplor-family-travel-api-data-model.yml
+        authentication: authentication/famxplor-family-travel-api-authentication.yml
+        rate_limits: rate-limits/famxplor-family-travel-api-rate-limits.yml
+        mcp: mcp/famxplor-family-travel-api-mcp.yml
+  - target: $.paths['/v1/nearest-activities'].post
+    description: Tag the operation and record the undocumented auth-failure response.
+    update:
+      tags: [Activities]
+      x-apievangelist-observed-403:
+        description: 'Probed 2026-09-07: {"detail":"An API key must be passed as header"} — not declared in the contract.'
+  - target: $.paths['/v1/nearest-posts'].post
+    description: Tag the operation.
+    update:
+      tags: [Posts]
+  - target: $.paths['/v1/travel-time'].post
+    description: Tag the operation.
+    update:
+      tags: [Routing]
+  - target: $.paths['/v1/activities/details/{activity_id}'].get
+    description: Tag the operation and note the identifier mismatch with the search response.
+    update:
+      tags: [Activities]
+      x-apievangelist-note: >-
+        Takes the `id` returned by /v1/nearest-activities but returns it as `activity_id`,
+        and returns `name` where the search response returned `title`.

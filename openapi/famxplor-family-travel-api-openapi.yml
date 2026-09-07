@@ -1,0 +1,564 @@
+# Harvested verbatim from https://api.famxplor.com/openapi.json (HTTP 200, 2026-09-07).
+# x-apievangelist: servers[] added from the provider's own https://famxplor.com/apis.yml index
+# (apis[0].baseURL: https://api.famxplor.com); the served document declares no servers block.
+openapi: 3.1.0
+info:
+  title: Famxplor Family Travel API
+  description: "Welcome to the [Famxplor](https://famxplor.com) Family Travel API Developer Documentation!\n\nThis guide will\
+    \ provide you with all the necessary information to integrate with the Famxplor API and access family travel activities\
+    \ with kids worldwide.\n\nThe **[Famxplor Family Travel API](https://famxplor.com/api)** offers:\n\n* Seamless access\
+    \ to curated family travel activities from around the globe.\n* Kid-friendly travel suggestions tailored to your users.\n\
+    * Opportunities for developers, travel platforms, and businesses to enhance their offerings with family-focused content.\n\
+    \nWhether you're building a travel website, mobile app, AI agent, or integrating into an existing platform, the Famxplor\
+    \ API empowers you to deliver family-friendly travel ideas that parents and kids will love.\n\n### Access to this documentation\n\
+    \nToo see this documentation check the [ReDoc version](/redoc) or [Swagger UI](/docs).\n\n### Import in Postman\n\nIf\
+    \ you prefer to test the API on Postman, you can import the API using the URL: [https://api.famxplor.com/openapi.json](https://api.famxplor.com/openapi.json)\n\
+    See the official Postman's documentation [Import Swagger APIs](https://learning.postman.com/docs/getting-started/importing-and-exporting/importing-from-swagger/).\n\
+    \n### Authentication\n\nTo access the Famxplor API, you must include an **API key** in the request headers:\n1. [Get your\
+    \ API key here](https://www.famxplor.com/api)\n2. Include the key in headers as shown in this example:\n\n```bash\ncurl\
+    \ -X POST \"https://api.famxplor.com/v1/nearest-posts\" \\\n  -H 'Content-Type: application/json' \\\n  -H \"api-key:\
+    \ $API_KEY\" \\\n  -d '{\"lat\":48.85341,\"lon\":2.3488,\"max_distance\":100000}'\n```\n\n### Language of the results\n\
+    \nThe `Accept-Language` HTTP header can be used to request a specific language for the results.\n\nIf not specified, the\
+    \ default language is English.\n\nAccept-Language Format:\n\nThe `Accept-Language` header value is a single language code.\n\
+    The language code is a two-letter abbreviation, like `en`, as specified by [ISO 639](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes).\n\
+    \nIf the specified language is not available, results will be returned in English.\n\nExample:\n\nTo request content in\
+    \ the French language (code: `fr`) using `curl`, add the following command line options:\n\n```\n-H 'Accept-Language:\
+    \ fr'\n```\n\n### Unknown fields\n\nUnknown fields in responses should be ignored.\nThis allows introducing new properties\
+    \ while keeping existing code functional.\n"
+  contact:
+    email: hello@famxplor.com
+  version: 1.1.7
+servers:
+- url: https://api.famxplor.com
+  description: Production (declared in https://famxplor.com/apis.yml)
+paths:
+  /v1/nearest-posts:
+    post:
+      summary: Nearest Posts
+      description: 'Retrieves posts related to family activities that are geographically close to the specified location.
+
+
+        **Maximum results per request**: 100 posts.'
+      operationId: nearest_posts_v1_nearest_posts_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NearestInput'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Posts'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /v1/nearest-activities:
+    post:
+      summary: Nearest Activities
+      description: 'Retrieves family activities that are geographically close to the specified location.
+
+
+        **Maximum results per request**: 100 activities.'
+      operationId: nearest_activities_v1_nearest_activities_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NearestInput'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activities'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /v1/travel-time:
+    post:
+      summary: Travel Time
+      description: Calculates the travel time and distance between a series of geographic coordinates.
+      operationId: travel_time_v1_travel_time_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TravelTimeInput'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TravelTimeOutput'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /v1/activities/details/{activity_id}:
+    get:
+      summary: Activity Details
+      description: Get properties of the given activity.
+      operationId: activity_details_v1_activities_details__activity_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: activity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Activity Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/famxplor_api__activities__activities_db__Activity'
+        '404':
+          description: Activity not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Detail'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Activities:
+      properties:
+        activities:
+          items:
+            $ref: '#/components/schemas/famxplor_api__main__Activity'
+          type: array
+          title: Activities
+      type: object
+      required:
+      - activities
+      title: Activities
+    Detail:
+      properties:
+        detail:
+          type: string
+          title: Detail
+      type: object
+      required:
+      - detail
+      title: Detail
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LatLon:
+      properties:
+        lat:
+          type: number
+          maximum: 90.0
+          minimum: -90.0
+          title: Latitude
+          description: Latitude.
+          examples:
+          - 48.85341
+        lon:
+          type: number
+          maximum: 180.0
+          minimum: -180.0
+          title: Longitude
+          description: Longitude.
+          examples:
+          - 2.3488
+      type: object
+      required:
+      - lat
+      - lon
+      title: LatLon
+      description: Represents a geographical coordinate.
+    NearestInput:
+      properties:
+        lat:
+          type: number
+          maximum: 90.0
+          minimum: -90.0
+          title: Latitude
+          description: Latitude.
+          examples:
+          - 48.85341
+        lon:
+          type: number
+          maximum: 180.0
+          minimum: -180.0
+          title: Longitude
+          description: Longitude.
+          examples:
+          - 2.3488
+        max_distance:
+          type: number
+          maximum: 100000.0
+          minimum: 0.0
+          title: Max Distance
+          description: Maximum distance from the provided coordinates, in meters.
+          default: 1000
+      type: object
+      required:
+      - lat
+      - lon
+      title: NearestInput
+    Posts:
+      properties:
+        posts:
+          items:
+            $ref: '#/components/schemas/famxplor_api__main__Post'
+          type: array
+          title: Posts
+      type: object
+      required:
+      - posts
+      title: Posts
+    TravelTimeInput:
+      properties:
+        locations:
+          items:
+            $ref: '#/components/schemas/LatLon'
+          type: array
+          minItems: 2
+          title: Locations for Route
+          description: A list of at least two locations (latitude, longitude pairs). The first is the start, the last is the
+            end. Intermediate points act as waypoints.
+      type: object
+      required:
+      - locations
+      title: TravelTimeInput
+    TravelTimeOutput:
+      properties:
+        time:
+          type: number
+          title: Time
+          description: Travel time in seconds.
+          examples:
+          - 2994.825
+        length_mi:
+          type: number
+          title: Length Mi
+          description: Travel length in miles.
+          examples:
+          - 30.301
+        length_km:
+          type: number
+          title: Length Km
+          description: Travel length in kilometers.
+          examples:
+          - 48.764
+      type: object
+      required:
+      - time
+      - length_mi
+      - length_km
+      title: TravelTimeOutput
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    famxplor_api__activities__activities_db__Activity:
+      properties:
+        activity_id:
+          type: string
+          title: Activity ID
+          description: Unique identifier for the activity.
+          examples:
+          - france-occitanie-montpellier-place-de-la-comedie
+        name:
+          type: string
+          title: Name
+          description: Name of the activity.
+          examples:
+          - Place de la Comédie
+        type:
+          type: string
+          title: Type
+          description: Type of activity, e.g., park, museum.
+          examples:
+          - square
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: URL
+          description: URL of the activity's web page.
+          examples:
+          - null
+        description:
+          type: string
+          title: Description
+          description: Description of the activity.
+          examples:
+          - The Place de la Comédie is a square in Montpellier, France, and a symbol of the city's prosperity in the 18th
+            and 19th centuries. It features the Opéra Comédie, a theater built in 1888, and a statue of the Three Graces on
+            a fountain. The square is one of the largest pedestrian areas in Europe and is surrounded by cafes, restaurants,
+            and shops. It's a great place to start exploring the city, with nearby museums, such as the Musée Fabre, and a
+            tramway stop that connects to other parts of the city. The square is also close to the Esplanade de Charles de
+            Gaulle, a small park, and the Lycée Joffre, a former citadel
+        country:
+          type: string
+          title: Country
+          description: Country where the activity is located.
+          examples:
+          - France
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          description: Region where the activity is located.
+          examples:
+          - Occitanie
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+          description: City where the activity is located.
+          examples:
+          - Montpellier
+        lat:
+          type: number
+          title: Latitude
+          description: Latitude of the activity's location.
+          examples:
+          - 43.60834
+        lon:
+          type: number
+          title: Longitude
+          description: Longitude of the activity's location.
+          examples:
+          - 3.88015
+        posts:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/famxplor_api__activities__activities_db__Post'
+            type: array
+          - type: 'null'
+          title: Posts
+          description: Posts that mention this activity.
+      type: object
+      required:
+      - activity_id
+      - name
+      - type
+      - description
+      - country
+      - lat
+      - lon
+      title: Activity
+    famxplor_api__activities__activities_db__Post:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Title of the post.
+          examples:
+          - 'Montpellier with the family: 15 must-do things'
+        url:
+          type: string
+          title: URL
+          description: URL of the post's web page.
+          examples:
+          - https://www.enfant-en-voyage.com/montpellier-avec-enfants-en-famille/
+        what_did:
+          type: string
+          title: What Did
+          description: What the family did at this activity.
+          examples:
+          - We started our family walk on the Place de la Comédie, the heart of Montpellier and the life of the Montpelliérains
+        enjoyed:
+          type: string
+          title: Enjoyed
+          description: What the family enjoyed about this activity.
+          examples:
+          - The kids enjoyed saying hello to the Three Graces of the fountain and admiring the buildings around the square
+        favicon_img:
+          type: string
+          title: Favicon Image
+          description: URL of the site's favicon image.
+          examples:
+          - 40a2c305805f19362990a9920a5b96d7_favicon.png
+        thumb_img:
+          type: string
+          title: Thumbnail Image
+          description: URL of the post's thumbnail image.
+          examples:
+          - ea21dcd277a5a3e1503c38d4f0669534_thumb_md.jpg
+        lang:
+          type: string
+          title: Language
+          description: Language of the post.
+          examples:
+          - fr
+      type: object
+      required:
+      - name
+      - url
+      - what_did
+      - enjoyed
+      - favicon_img
+      - thumb_img
+      - lang
+      title: Post
+      description: Post mentioning an activity.
+    famxplor_api__main__Activity:
+      properties:
+        id:
+          type: string
+          title: ID
+          description: Unique identifier for the activity.
+          examples:
+          - france-normandy-caen-suisse-normande
+        title:
+          type: string
+          title: Title
+          description: Name of the activity.
+          examples:
+          - 'Suisse Normande (Normandy with kids: 16 kids'' activities in a row!)'
+        url:
+          type: string
+          title: URL
+          description: URL of the activity's web page.
+          examples:
+          - https://www.reiskoe.nl/en/normandy-with-kids/
+        img_url:
+          type: string
+          title: Image URL
+          description: URL of the activity's thumbnail image.
+          examples:
+          - https://app.famxplor.com/assets/img/fdc4c3582bce7e3af01725b0f6494d85_thumb_md.jpg
+        lat:
+          type: number
+          title: Latitude
+          description: Latitude of the activity's location.
+          examples:
+          - 49.18433
+        lon:
+          type: number
+          title: Longitude
+          description: Longitude of the activity's location.
+          examples:
+          - -0.36118
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: Tags associated with the activity
+          examples:
+          - - museum
+          - - hot spring
+            - park
+      type: object
+      required:
+      - id
+      - title
+      - url
+      - img_url
+      - lat
+      - lon
+      - tags
+      title: Activity
+    famxplor_api__main__Post:
+      properties:
+        id:
+          type: string
+          title: ID
+          description: Unique identifier for the post.
+          examples:
+          - 6094748ff0f7b2fc7794cb2ac20d2cbe
+        title:
+          type: string
+          title: Title
+          description: Title of the post.
+          examples:
+          - 'Paris with kids in one day: 24-hour itinerary from a local'
+        url:
+          type: string
+          title: URL
+          description: URL of the post's web page.
+          examples:
+          - https://www.ourglobetrotters.com/paris-with-kids-in-one-day/
+        img_url:
+          type: string
+          title: Image URL
+          description: URL of the post's thumbnail image.
+          examples:
+          - https://app.famxplor.com/assets/img/6094748ff0f7b2fc7794cb2ac20d2cbe_thumb.jpg
+        lat:
+          type: number
+          title: Latitude
+          description: Latitude of the post's main location.
+          examples:
+          - 48.85341
+        lon:
+          type: number
+          title: Longitude
+          description: Longitude of the post's main location.
+          examples:
+          - 2.3488
+      type: object
+      required:
+      - id
+      - title
+      - url
+      - img_url
+      - lat
+      - lon
+      title: Post
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: api-key

@@ -1,0 +1,80 @@
+generated: '2026-09-07'
+method: searched
+status: published
+source: https://github.com/alt250/famxplor-family-travel-mcp-server
+ownership:
+  official: true
+  evidence: >-
+    Published on the personal GitHub account of Denis Angilella (alt250), with
+    `homepage: https://famxplor.com` set on the repository, and a README that speaks for the
+    vendor in the first person — "Famxplor MCP server is free for personal use, like the
+    family activities world map of Famxplor". The server calls api.famxplor.com with a
+    Famxplor API key and is the only MCP implementation of this API that exists. Recorded as
+    first-party-by-the-developer rather than org-owned: Famxplor publishes no GitHub
+    organization, and famxplor.com does not link the repository from any page probed
+    (/, /api, /pricing, /app all 200, none carry a github.com link).
+license: MIT
+deployment:
+  mode: local-stdio
+  endpoint: null
+  install: 'uv sync && FAMXPLOR_API_KEY="<your key>" uv run server.py'
+  package: https://github.com/alt250/famxplor-family-travel-mcp-server
+  auth: api-key
+  verified: probed
+  note: >-
+    NOT a remote server. The source calls mcp.run(transport="streamable-http"), so the
+    process speaks streamable HTTP — but it speaks it on the machine the operator started it
+    on. There is no hosted endpoint: mcp.famxplor.com resolves to ghs.googlehosted.com and
+    404s on /, /mcp and /sse; api.famxplor.com/mcp, /v1/mcp and /sse all return
+    {"detail":"Not Found"} (404). A human must clone the repo, install with uv and supply a
+    FAMXPLOR_API_KEY before any agent can reach it. The package is not published to PyPI
+    (pypi.org/pypi/famxplor-family-travel-mcp-server/json -> 404) or npm, so `git clone` is
+    the only distribution channel.
+server:
+  name: famxplor
+  framework: mcp.server.fastmcp.FastMCP
+  language: python
+  requires_python: '>=3.10'
+  transport: streamable-http (locally hosted)
+  api_base: https://api.famxplor.com
+  api_base_override: FAMXPLOR_API_HOST
+  credential_env: FAMXPLOR_API_KEY
+  version: '0.1.0'
+  last_commit: '2026-07-04'
+  created: '2025-05-23'
+tools:
+  - name: search_family_activities
+    description: >-
+      Retrieves family activities that are geographically close to the specified location.
+    inputs:
+      - {name: lat, type: number, required: true, description: Latitude of the location.}
+      - {name: lon, type: number, required: true, description: Longitude of the location.}
+      - {name: max_dist, type: number, required: true, description: Maximum distance from the provided coordinates in meters.}
+      - {name: user_query, type: string, required: true, description: "The precise user's query for which activities are being searched. Used to return relevant activities."}
+    returns: >-
+      A formatted STRING (not JSON) — one block per activity with Title, More info URL,
+      Image URL and Location, joined by "---".
+    source_operation: openapi/famxplor-family-travel-api-openapi.yml#nearest_activities_v1_nearest_activities_post
+    method: searched
+    evidence: 'server.py @mcp.tool() search_family_activities, read verbatim 2026-09-07'
+findings:
+  - id: one-tool-of-four-operations
+    detail: >-
+      The server exposes ONE tool against a four-operation API. /v1/nearest-posts,
+      /v1/travel-time and /v1/activities/details/{activity_id} have no MCP tool, so the
+      family testimony (what_did / enjoyed) — the content the product is actually sold on —
+      is unreachable from an MCP client.
+  - id: user_query-is-accepted-and-discarded
+    detail: >-
+      The tool signature takes `user_query` and its docstring says it is "used to return
+      relevant activities", but server.py builds the request body from lat/lon/max_distance
+      only and never sends it. The REST operation has no matching parameter. An agent is
+      told relevance filtering happens; it does not.
+  - id: lossy-return-type
+    detail: >-
+      The tool returns a formatted string rather than structured content, dropping the `tags`
+      array and the activity `id` present in the REST response — so an agent cannot follow up
+      with an activity-details call.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

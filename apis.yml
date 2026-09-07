@@ -29,7 +29,7 @@ type: Index
 access: 3rd-Party
 position: Consuming
 created: '2024-12-18'
-modified: '2026-04-28'
+modified: '2026-09-07'
 specificationVersion: '0.23'
 tags:
   - Activities
@@ -54,20 +54,35 @@ apis:
       ideas, and engaging content that enhances user experiences and engagement.
       The API is RESTful and is compatible with AI tools and MCP (Model Context
       Protocol) servers.
-    humanURL: https://famxplor.com/
+    humanURL: https://famxplor.com/api
+    baseURL: https://api.famxplor.com
     image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     tags:
       - Activities
       - Family
       - Travel
     properties:
+      - type: OpenAPI
+        url: openapi/famxplor-family-travel-api-openapi.yml
+      - type: OpenAPI
+        url: openapi/_original/famxplor-family-travel-api-openapi.json
       - type: Documentation
         url: https://famxplor.com/api
+      - type: APIReference
+        url: https://api.famxplor.com/redoc
+      - type: MCPServer
+        url: mcp/famxplor-family-travel-api-mcp.yml
+      - type: ToolCrosswalk
+        url: mcp/famxplor-family-travel-api-tool-crosswalk.yml
       - type: Pricing
         url: https://famxplor.com/pricing
       - type: Signup
         url: https://famxplor.com/login
 common:
+  - type: AgenticAccess
+    url: agentic-access/famxplor-family-travel-api-agentic-access.yml
+  - type: Authentication
+    url: authentication/famxplor-family-travel-api-authentication.yml
   - type: DomainSecurity
     url: security/famxplor-family-travel-api-domain-security.yml
   - type: Website
@@ -84,6 +99,42 @@ common:
     url: https://famxplor.com/legal/privacy-policy/
   - type: TermsOfService
     url: https://famxplor.com/legal/terms-of-service/
+  - type: OpenAPI
+    url: openapi/famxplor-family-travel-api-openapi.yml
+  - type: APIsYAML
+    url: https://famxplor.com/apis.yml
+  - type: APIReference
+    url: https://api.famxplor.com/redoc
+  - type: MCPServer
+    url: mcp/famxplor-family-travel-api-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/famxplor-family-travel-api-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Conventions
+    url: conventions/famxplor-family-travel-api-conventions.yml
+  - type: ErrorCatalog
+    url: errors/famxplor-family-travel-api-problem-types.yml
+  - type: Lifecycle
+    url: lifecycle/famxplor-family-travel-api-lifecycle.yml
+  - type: Conformance
+    url: conformance/famxplor-family-travel-api-conformance.yml
+  - type: DataModel
+    url: data-model/famxplor-family-travel-api-data-model.yml
+  - type: Packages
+    url: packages/famxplor-family-travel-api-packages.yml
+  - type: Examples
+    url: examples/famxplor-family-travel-api-examples.yml
+  - type: Overlay
+    url: overlays/famxplor-family-travel-api-openapi-overlay.yaml
+  - type: LLMsTxt
+    url: llms/famxplor-family-travel-api-llms.txt
+  - type: RateLimits
+    url: rate-limits/famxplor-family-travel-api-rate-limits.yml
+  - type: Plans
+    url: plans/famxplor-family-travel-api-plans-pricing.yml
+  - type: FinOps
+    url: finops/famxplor-family-travel-api-finops.yml
 description: >-
   The First API 100% Dedicated to Family Travel. Designed for developers, travel
   apps, and businesses, the Famxplor API delivers personalized, family-focused
@@ -94,3 +145,8 @@ description: >-
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-09-07'
+  status: enriched
+  artifacts_added: 21
+  pass: local-v3

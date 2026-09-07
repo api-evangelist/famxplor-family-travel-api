@@ -1,0 +1,74 @@
+generated: '2026-09-07'
+method: generated
+source: openapi/famxplor-family-travel-api-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 4
+  by_action_class:
+    acting: 3
+    connected: 1
+  by_consequence:
+    write: 3
+    read: 1
+  human_in_the_loop_required: 0
+operations:
+- path: /v1/nearest-posts
+  method: post
+  operationId: nearest_posts_v1_nearest_posts_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/nearest-activities
+  method: post
+  operationId: nearest_activities_v1_nearest_activities_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/travel-time
+  method: post
+  operationId: travel_time_v1_travel_time_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/activities/details/{activity_id}
+  method: get
+  operationId: activity_details_v1_activities_details__activity_id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

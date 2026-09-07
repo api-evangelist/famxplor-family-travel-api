@@ -1,0 +1,57 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/famxplor-family-travel-api-openapi.yml
+probe_source: live unauthenticated requests to https://api.famxplor.com, 2026-09-07
+format: not-rfc9457
+envelope:
+  media_type: application/json
+  field: detail
+  detail: >-
+    FastAPI default. `detail` is a plain string on 403/404 and an ARRAY of ValidationError
+    objects on 422. No `type` URI, no `title`, no `instance`, no machine-readable error code
+    — an agent branches on the HTTP status and the runtime type of `detail`.
+schemas:
+  HTTPValidationError:
+    detail: array of ValidationError
+  ValidationError:
+    loc: array of (string | integer) — path to the offending field
+    msg: string — human-readable message
+    type: string — pydantic error type slug (the closest thing to an error code)
+  Detail:
+    detail: string
+problems:
+  - status: 403
+    title: API key missing or rejected
+    body: '{"detail":"An API key must be passed as header"}'
+    method: probed
+    evidence: 'POST https://api.famxplor.com/v1/nearest-activities with no api-key header -> 403'
+    remediation: Send the `api-key` request header with a key from https://famxplor.com/api
+    note: >-
+      Not declared in the OpenAPI. Every operation declares APIKeyHeader security but no
+      operation documents a 401 or 403 response, so the auth-failure shape is discoverable
+      only by calling the API.
+    source_operation: all four operations
+  - status: 404
+    title: Activity not found.
+    body: '{"detail": "<string>"}'
+    schema: '#/components/schemas/Detail'
+    method: derived
+    source_operation: openapi/famxplor-family-travel-api-openapi.yml#activity_details_v1_activities_details__activity_id__get
+  - status: 422
+    title: Validation Error
+    body: '{"detail":[{"loc":["body","lat"],"msg":"...","type":"..."}]}'
+    schema: '#/components/schemas/HTTPValidationError'
+    method: derived
+    remediation: Correct the field named by `detail[].loc` and retry.
+    source_operation: all four operations
+gaps:
+  - No 401 documented anywhere in the contract, though the live surface answers 403 on a
+    missing key.
+  - No 429 documented, although the pricing page sells monthly call quotas — an agent has no
+    documented shape for quota exhaustion.
+  - No 5xx documented.
+  - No stable machine-readable error code; `ValidationError.type` is the only code-like field
+    and it exists on 422 only.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

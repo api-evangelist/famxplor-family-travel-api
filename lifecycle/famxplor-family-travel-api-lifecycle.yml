@@ -1,0 +1,51 @@
+generated: '2026-09-07'
+method: probed
+source: >-
+  https://api.famxplor.com/openapi.json plus direct probes of famxplor.com for the
+  conventional policy pages, 2026-09-07.
+versioning:
+  scheme: uri-path
+  current: v1
+  spec_version: 1.1.7
+  policy_url: null
+  detail: >-
+    The URI carries /v1/ and info.version reads 1.1.7. No versioning POLICY is published —
+    nothing states what a breaking change is, how long a version is supported, or how a new
+    one is announced.
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  detail: No deprecation policy, no Sunset/Deprecation header support documented (RFC 8594).
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+  detail: >-
+    "Premium SLAs" are listed as an Enterprise plan inclusion on https://famxplor.com/pricing
+    but no SLA document, uptime target or credit schedule is published.
+status_page: null
+changelog: null
+support:
+  channel: email
+  detail: >-
+    "Responsive Email Support" / "Standard Email Support" / "Priority Email Support" per
+    plan (https://famxplor.com/pricing). The published address is hello@famxplor.com
+    (OpenAPI info.contact.email). No ticketing system, forum, Slack or Discord.
+probes:
+  - {url: 'https://status.famxplor.com/', status: 000, note: does not resolve}
+  - {url: 'https://famxplor.com/status', status: 404}
+  - {url: 'https://famxplor.com/changelog', status: 404}
+  - {url: 'https://famxplor.com/roadmap', status: 404}
+  - {url: 'https://famxplor.com/support', status: 404}
+  - {url: 'https://famxplor.com/contact', status: 404}
+  - {url: 'https://famxplor.com/security', status: 404}
+  - {url: 'https://docs.famxplor.com/', status: 000, note: does not resolve}
+  - {url: 'https://developer.famxplor.com/', status: 000, note: does not resolve}
+finding: >-
+  No status page, no changelog, no deprecation policy and no roadmap. For a paid API whose
+  cheapest tier is $4.99/month this is the largest single operational gap in the profile:
+  a consumer has no published way to learn that the API is down, that it changed, or that an
+  operation is going away.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

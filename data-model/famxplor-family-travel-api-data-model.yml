@@ -1,0 +1,94 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/famxplor-family-travel-api-openapi.yml
+summary: >-
+  Two domain entities — Activity and Post — each modelled TWICE in the contract under
+  different shapes for different operations, plus one value object (LatLon) and one
+  computed result (TravelTimeOutput). The duplication is the notable finding: the search
+  responses and the detail response use incompatible field names for the same entity.
+entities:
+  - name: Activity (search shape)
+    schema: famxplor_api__main__Activity
+    id_field: id
+    id_form: slug — country-region-city-place
+    id_example: france-normandy-caen-suisse-normande
+    fields: [id, title, url, img_url, lat, lon, tags]
+    returned_by:
+      - nearest_activities_v1_nearest_activities_post
+  - name: Activity (detail shape)
+    schema: famxplor_api__activities__activities_db__Activity
+    id_field: activity_id
+    id_form: slug — country-region-city-place
+    id_example: france-occitanie-montpellier-place-de-la-comedie
+    fields: [activity_id, name, type, url, description, country, region, city, lat, lon, posts]
+    returned_by:
+      - activity_details_v1_activities_details__activity_id__get
+  - name: Post (search shape)
+    schema: famxplor_api__main__Post
+    id_field: id
+    id_form: 32-char hex digest
+    id_example: 6094748ff0f7b2fc7794cb2ac20d2cbe
+    fields: [id, title, url, img_url, lat, lon]
+    returned_by:
+      - nearest_posts_v1_nearest_posts_post
+  - name: Post (embedded shape)
+    schema: famxplor_api__activities__activities_db__Post
+    id_field: none
+    fields: [name, url, what_did, enjoyed, favicon_img, thumb_img, lang]
+    note: >-
+      The family-testimony payload — what_did / enjoyed is the content the product is sold
+      on. Reachable ONLY by embedding inside an Activity detail response; it carries no id
+      and there is no operation that returns it directly.
+value_objects:
+  - name: LatLon
+    fields: [lat, lon]
+    constraints: {lat: -90..90, lon: -180..180}
+  - name: NearestInput
+    fields: [lat, lon, max_distance]
+    constraints: {max_distance: 0..100000 metres, default: 1000}
+  - name: TravelTimeInput
+    fields: [locations]
+    constraints: minimum 2 LatLon; first is origin, last is destination, the rest are waypoints
+  - name: TravelTimeOutput
+    fields: [time (seconds), length_mi, length_km]
+relationships:
+  - from: Activity (detail shape)
+    to: Post (embedded shape)
+    cardinality: has_many
+    via: posts
+    nullable: true
+    evidence: 'famxplor_api__activities__activities_db__Activity.posts -> anyOf[array[Post], null]'
+  - from: Activities
+    to: Activity (search shape)
+    cardinality: has_many
+    via: activities
+  - from: Posts
+    to: Post (search shape)
+    cardinality: has_many
+    via: posts
+  - from: TravelTimeInput
+    to: LatLon
+    cardinality: has_many
+    via: locations
+findings:
+  - id: dual-shape-entities
+    detail: >-
+      Activity is `id`/`title` in the search response and `activity_id`/`name` in the detail
+      response. A client that walks search -> detail must remap both the identifier field and
+      the display field. Same entity, two contracts.
+  - id: no-post-detail-operation
+    detail: >-
+      Post carries an `id` in search results but there is no getPost operation — the id is
+      returned and then unusable. The only route to post content is via an Activity detail.
+  - id: no-cross-entity-join
+    detail: >-
+      Nothing links a search-shape Post to an Activity: the hex Post id and the slug Activity
+      id share no key, so posts found by /v1/nearest-posts cannot be resolved to an activity.
+  - id: no-catalog-operation
+    detail: >-
+      Every entity is reachable only through a coordinate. There is no list-by-country,
+      list-by-city or list-by-tag operation, so an agent cannot enumerate the catalog or
+      discover the valid `tags` / `type` vocabularies without guessing coordinates.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

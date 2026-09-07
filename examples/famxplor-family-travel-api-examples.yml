@@ -1,0 +1,116 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/famxplor-family-travel-api-openapi.yml
+note: >-
+  Every value below is taken verbatim from the `examples[]` arrays the provider ships in its
+  own OpenAPI schemas, or from the curl example in info.description. Nothing is invented — no
+  response was captured from the live API, which requires a paid key.
+examples:
+  - operation: nearest_activities_v1_nearest_activities_post
+    request:
+      method: POST
+      url: https://api.famxplor.com/v1/nearest-activities
+      headers:
+        Content-Type: application/json
+        api-key: $API_KEY
+      body:
+        lat: 48.85341
+        lon: 2.3488
+        max_distance: 100000
+      source: 'info.description curl example + NearestInput examples[]'
+    response:
+      status: 200
+      body:
+        activities:
+          - id: france-normandy-caen-suisse-normande
+            title: "Suisse Normande (Normandy with kids: 16 kids' activities in a row!)"
+            url: https://www.reiskoe.nl/en/normandy-with-kids/
+            img_url: https://app.famxplor.com/assets/img/fdc4c3582bce7e3af01725b0f6494d85_thumb_md.jpg
+            lat: 49.18433
+            lon: -0.36118
+            tags: [museum]
+      source: 'components.schemas.famxplor_api__main__Activity examples[]'
+  - operation: nearest_posts_v1_nearest_posts_post
+    request:
+      method: POST
+      url: https://api.famxplor.com/v1/nearest-posts
+      headers:
+        Content-Type: application/json
+        api-key: $API_KEY
+      body:
+        lat: 48.85341
+        lon: 2.3488
+        max_distance: 100000
+    response:
+      status: 200
+      body:
+        posts:
+          - id: 6094748ff0f7b2fc7794cb2ac20d2cbe
+            title: 'Paris with kids in one day: 24-hour itinerary from a local'
+            url: https://www.ourglobetrotters.com/paris-with-kids-in-one-day/
+            img_url: https://app.famxplor.com/assets/img/6094748ff0f7b2fc7794cb2ac20d2cbe_thumb.jpg
+            lat: 48.85341
+            lon: 2.3488
+      source: 'components.schemas.famxplor_api__main__Post examples[]'
+  - operation: activity_details_v1_activities_details__activity_id__get
+    request:
+      method: GET
+      url: https://api.famxplor.com/v1/activities/details/france-occitanie-montpellier-place-de-la-comedie
+      headers:
+        api-key: $API_KEY
+    response:
+      status: 200
+      body:
+        activity_id: france-occitanie-montpellier-place-de-la-comedie
+        name: Place de la Comédie
+        type: square
+        url: null
+        country: France
+        region: Occitanie
+        city: Montpellier
+        lat: 43.60834
+        lon: 3.88015
+        posts:
+          - name: 'Montpellier with the family: 15 must-do things'
+            url: https://www.enfant-en-voyage.com/montpellier-avec-enfants-en-famille/
+            what_did: We started our family walk on the Place de la Comédie, the heart of Montpellier and the life of the Montpelliérains
+            enjoyed: The kids enjoyed saying hello to the Three Graces of the fountain and admiring the buildings around the square
+            lang: fr
+      source: >-
+        components.schemas.famxplor_api__activities__activities_db__Activity and
+        ...__Post examples[] (description field elided for length)
+  - operation: travel_time_v1_travel_time_post
+    request:
+      method: POST
+      url: https://api.famxplor.com/v1/travel-time
+      headers:
+        Content-Type: application/json
+        api-key: $API_KEY
+      body:
+        locations:
+          - {lat: 48.85341, lon: 2.3488}
+          - {lat: 49.18433, lon: -0.36118}
+      source: 'LatLon examples[]; TravelTimeInput requires minItems 2'
+    response:
+      status: 200
+      body:
+        time: 2994.825
+        length_mi: 30.301
+        length_km: 48.764
+      source: 'components.schemas.TravelTimeOutput examples[]'
+error_examples:
+  - status: 403
+    body: {detail: An API key must be passed as header}
+    method: probed
+    source: 'live POST to /v1/nearest-activities without the api-key header, 2026-09-07'
+  - status: 422
+    body:
+      detail:
+        - loc: [body, lat]
+          msg: <message>
+          type: <pydantic error type>
+    method: derived
+    source: '#/components/schemas/HTTPValidationError'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

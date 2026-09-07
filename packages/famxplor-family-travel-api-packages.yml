@@ -1,0 +1,44 @@
+generated: '2026-09-07'
+method: searched
+source: >-
+  Registry metadata probes of npm, PyPI, RubyGems, crates.io and Packagist, plus the
+  provider's own /api and /pricing pages and the GitHub account that publishes the MCP
+  server, 2026-09-07.
+official_sdk_count: 0
+finding: >-
+  Famxplor ships NO client library in any language. The developer surface is the raw REST
+  contract plus a Swagger UI / ReDoc pair; info.description tells integrators to import
+  https://api.famxplor.com/openapi.json into Postman rather than pointing at an SDK. The one
+  installable first-party artifact is the MCP server, distributed only as a git clone — it is
+  published to no registry, so a consumer cannot pin a version of it either.
+registries_probed:
+  - {registry: npm, query: famxplor, results: 0, url: 'https://registry.npmjs.org/-/v1/search?text=famxplor', status: 200}
+  - {registry: npm, package: famxplor, status: 404}
+  - {registry: pypi, package: famxplor, status: 404}
+  - {registry: pypi, package: famxplor-family-travel-mcp-server, status: 404}
+  - {registry: rubygems, package: famxplor, status: 404}
+  - {registry: crates.io, package: famxplor, status: 404}
+  - {registry: packagist, package: famxplor, status: 404, note: 'the 200 returned is Packagist search HTML, not a package document'}
+packages:
+  - language: python
+    registry: none
+    name: famxplor-family-travel-mcp-server
+    url: https://github.com/alt250/famxplor-family-travel-mcp-server
+    install: 'git clone https://github.com/alt250/famxplor-family-travel-mcp-server && uv sync'
+    official: true
+    kind: mcp-server
+    version: '0.1.0'
+    published: null
+    note: >-
+      Version read from pyproject.toml in the repository, not from a registry — the package
+      is published to NO registry (PyPI 404), so there is no metadata endpoint and no
+      publication date to record. `published: null` here means checked and absent, not
+      unchecked. Last commit to the default branch was 2026-07-04; the repository was created
+      2025-05-23. Because distribution is an unpinned git clone of `main`, a consumer cannot
+      tell which version they are getting either.
+    ownership: >-
+      First-party by the Famxplor developer — repository homepage is https://famxplor.com and
+      the README speaks for the vendor. See mcp/famxplor-family-travel-api-mcp.yml.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,50 @@
+generated: '2026-09-07'
+method: searched
+source: https://api.famxplor.com/openapi.json
+docs: https://api.famxplor.com/redoc
+summary:
+  types:
+    - apiKey
+  api_key_in:
+    - header
+  oauth2_flows: []
+  model: >-
+    Single static API key passed in the `api-key` request header. Every one of the
+    four published operations declares `security: [{APIKeyHeader: []}]`, so the whole
+    surface is key-protected; there is no anonymous tier, no OAuth, and no per-scope
+    authorization. Keys are self-service after signup and are bound to a paid plan.
+schemes:
+  - name: APIKeyHeader
+    type: apiKey
+    in: header
+    parameter: api-key
+    sources:
+      - openapi/famxplor-family-travel-api-openapi.yml
+    applies_to_operations:
+      - nearest_posts_v1_nearest_posts_post
+      - nearest_activities_v1_nearest_activities_post
+      - travel_time_v1_travel_time_post
+      - activity_details_v1_activities_details__activity_id__get
+key_acquisition:
+  url: https://famxplor.com/api
+  note: >-
+    "Get your API key today" — the key is issued on signup at https://famxplor.com/login
+    and requires an active plan (14-day free trial, no card).
+example_request: |
+  curl -X POST "https://api.famxplor.com/v1/nearest-activities" \
+    -H 'Content-Type: application/json' \
+    -H "api-key: $API_KEY" \
+    -d '{"lat":48.85341,"lon":2.3488,"max_distance":100000}'
+observed_failure:
+  probed: '2026-09-07'
+  request: POST https://api.famxplor.com/v1/nearest-activities (no api-key header)
+  status: 403
+  body: '{"detail":"An API key must be passed as header"}'
+  note: >-
+    403 rather than 401, and no WWW-Authenticate challenge header is returned — an
+    agent has to read the body to learn what is missing.
+rotation: not documented
+scopes: none — the key carries no scope or permission model
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

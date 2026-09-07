@@ -1,0 +1,84 @@
+generated: '2026-09-07'
+method: derived
+source: openapi/famxplor-family-travel-api-openapi.yml
+docs_checked:
+  - {url: 'https://famxplor.com/api', status: 200}
+  - {url: 'https://famxplor.com/pricing', status: 200}
+  - {url: 'https://famxplor.com/legal/privacy-policy', status: 200}
+  - {url: 'https://famxplor.com/legal/terms-of-service', status: 200}
+  - {url: 'https://famxplor.com/security', status: 404}
+  - {url: 'https://trust.famxplor.com/', status: 000}
+standards:
+  - id: openapi-3.1
+    conforms: true
+    evidence: 'https://api.famxplor.com/openapi.json declares openapi: 3.1.0 and parses'
+  - id: json-schema-2020-12
+    conforms: true
+    evidence: OpenAPI 3.1 dialect — components.schemas use anyOf/null and examples[] arrays
+  - id: apis-json-0.19
+    conforms: true
+    evidence: >-
+      The provider publishes a first-party APIs.json index at https://famxplor.com/apis.yml
+      (HTTP 200) declaring specificationVersion 0.19, aid famxplor, and apis[0].baseURL
+  - id: rfc7231-http-api-key-header
+    conforms: true
+    evidence: 'components.securitySchemes.APIKeyHeader — apiKey in header, name api-key'
+  - id: iso-639-language-negotiation
+    conforms: true
+    evidence: >-
+      info.description documents Accept-Language carrying a two-letter ISO 639 code, with a
+      documented fallback to English
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use FastAPI's {"detail": ...} envelope, not application/problem+json — probed
+      403 body {"detail":"An API key must be passed as header"}
+  - id: oauth2
+    conforms: false
+    evidence: no oauth2 securityScheme in the contract and no OAuth documented
+  - id: oidc
+    conforms: false
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: '/.well-known/security.txt 404 on famxplor.com, www.famxplor.com and api.famxplor.com'
+  - id: rfc9727-api-catalog
+    conforms: false
+    evidence: '/.well-known/api-catalog 404 on all three hosts'
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: no deprecation policy or Sunset header documented
+  - id: rfc6585-rate-limit-headers
+    conforms: false
+    evidence: no RateLimit-*/X-RateLimit-*/Retry-After header observed or documented
+  - id: idempotency-key
+    conforms: false
+    evidence: no idempotency mechanism; surface is read-only (see conventions/)
+  - id: pagination
+    conforms: false
+    evidence: no page/cursor/offset parameter — results are capped at 100 server-side
+  - id: mcp
+    conforms: true
+    evidence: >-
+      First-party MCP server exposing one tool over the Famxplor API —
+      https://github.com/alt250/famxplor-family-travel-mcp-server (homepage famxplor.com).
+      Self-hosted only; no remote endpoint is published.
+domain_standard:
+  market: travel / tourism content and points of interest
+  declared: false
+  detail: >-
+    REWARD-ONLY, and honestly empty. Nothing in the contract declares a travel-domain
+    standard — no OTA/OpenTravel message type, no GDS shape, no schema.org TouristAttraction
+    or Place vocabulary in the response schemas, no OGC/GeoJSON geometry (coordinates are
+    bare lat/lon numbers rather than a GeoJSON Point). The nearest thing to a domain standard
+    the API does use is ISO 639 language codes on Accept-Language, recorded above. A caller
+    integrating Famxplor alongside any other POI source writes a bespoke mapping.
+compliance_program:
+  published: false
+  certifications: []
+  detail: >-
+    No trust center, no SOC 2 / ISO 27001 / PCI / HIPAA / GDPR compliance page. A privacy
+    policy and terms of service are published; those are not a compliance program, so NO
+    `Compliance` pointer is emitted.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
