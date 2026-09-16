@@ -44,40 +44,88 @@ tags_raw:
   - AI
   - MCP
 apis:
-  - aid: famxplor-family-travel-api:famxplor-family-travel-api
-    name: Famxplor Family Travel API
-    description: >-
-      The First API 100% Dedicated to Family Travel. Designed for developers,
-      travel apps, and businesses, the Famxplor API delivers personalized,
-      family-focused recommendations tested and loved by real families.
-      Seamlessly integrate to provide location-based activities, global travel
-      ideas, and engaging content that enhances user experiences and engagement.
-      The API is RESTful and is compatible with AI tools and MCP (Model Context
-      Protocol) servers.
-    humanURL: https://famxplor.com/api
-    baseURL: https://api.famxplor.com
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    tags:
-      - Activities
-      - Family
-      - Travel
-    properties:
-      - type: OpenAPI
-        url: openapi/famxplor-family-travel-api-openapi.yml
-      - type: OpenAPI
-        url: openapi/_original/famxplor-family-travel-api-openapi.json
-      - type: Documentation
-        url: https://famxplor.com/api
-      - type: APIReference
-        url: https://api.famxplor.com/redoc
-      - type: MCPServer
-        url: mcp/famxplor-family-travel-api-mcp.yml
-      - type: ToolCrosswalk
-        url: mcp/famxplor-family-travel-api-tool-crosswalk.yml
-      - type: Pricing
-        url: https://famxplor.com/pricing
-      - type: Signup
-        url: https://famxplor.com/login
+- aid: famxplor-family-travel-api:famxplor-family-travel-api-activities-api
+  name: Famxplor Family Travel API Activities API
+  description: The Activities API from Famxplor Family Travel API — 1 operation(s) for activities.
+  humanURL: https://famxplor.com/api
+  baseURL: https://api.famxplor.com
+  tags:
+  - Activities
+  properties:
+  - type: OpenAPI
+    url: openapi/famxplor-family-travel-api-activities-api-openapi.yml
+  - type: Documentation
+    url: https://famxplor.com/api
+  - type: APIReference
+    url: https://api.famxplor.com/redoc
+  - type: ToolCrosswalk
+    url: mcp/famxplor-family-travel-api-tool-crosswalk.yml
+  - type: Pricing
+    url: https://famxplor.com/pricing
+  - type: Signup
+    url: https://famxplor.com/login
+- aid: famxplor-family-travel-api:famxplor-family-travel-api-nearest-activities-api
+  name: Famxplor Family Travel API Nearest Activities API
+  description: >-
+    The Nearest Activities API from Famxplor Family Travel API — 1 operation(s) for nearest activities.
+  humanURL: https://famxplor.com/api
+  baseURL: https://api.famxplor.com
+  tags:
+  - Nearest Activities
+  properties:
+  - type: OpenAPI
+    url: openapi/famxplor-family-travel-api-nearest-activities-api-openapi.yml
+  - type: Documentation
+    url: https://famxplor.com/api
+  - type: APIReference
+    url: https://api.famxplor.com/redoc
+  - type: ToolCrosswalk
+    url: mcp/famxplor-family-travel-api-tool-crosswalk.yml
+  - type: Pricing
+    url: https://famxplor.com/pricing
+  - type: Signup
+    url: https://famxplor.com/login
+- aid: famxplor-family-travel-api:famxplor-family-travel-api-nearest-posts-api
+  name: Famxplor Family Travel API Nearest Posts API
+  description: >-
+    The Nearest Posts API from Famxplor Family Travel API — 1 operation(s) for nearest posts.
+  humanURL: https://famxplor.com/api
+  baseURL: https://api.famxplor.com
+  tags:
+  - Nearest Posts
+  properties:
+  - type: OpenAPI
+    url: openapi/famxplor-family-travel-api-nearest-posts-api-openapi.yml
+  - type: Documentation
+    url: https://famxplor.com/api
+  - type: APIReference
+    url: https://api.famxplor.com/redoc
+  - type: ToolCrosswalk
+    url: mcp/famxplor-family-travel-api-tool-crosswalk.yml
+  - type: Pricing
+    url: https://famxplor.com/pricing
+  - type: Signup
+    url: https://famxplor.com/login
+- aid: famxplor-family-travel-api:famxplor-family-travel-api-travel-time-api
+  name: Famxplor Family Travel API Travel Time API
+  description: The Travel Time API from Famxplor Family Travel API — 1 operation(s) for travel time.
+  humanURL: https://famxplor.com/api
+  baseURL: https://api.famxplor.com
+  tags:
+  - Travel Time
+  properties:
+  - type: OpenAPI
+    url: openapi/famxplor-family-travel-api-travel-time-api-openapi.yml
+  - type: Documentation
+    url: https://famxplor.com/api
+  - type: APIReference
+    url: https://api.famxplor.com/redoc
+  - type: ToolCrosswalk
+    url: mcp/famxplor-family-travel-api-tool-crosswalk.yml
+  - type: Pricing
+    url: https://famxplor.com/pricing
+  - type: Signup
+    url: https://famxplor.com/login
 common:
   - type: AgenticAccess
     url: agentic-access/famxplor-family-travel-api-agentic-access.yml
