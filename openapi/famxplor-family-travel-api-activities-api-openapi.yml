@@ -1,0 +1,232 @@
+openapi: 3.2.0
+info:
+  title: Famxplor Family Travel Activities API
+  description: Welcome to the Famxplor Family Travel API Developer Documentation!
+  contact:
+    email: hello@famxplor.com
+  version: 1.1.7
+tags:
+- name: Activities
+paths:
+  /v1/activities/details/{activity_id}:
+    get:
+      summary: Activity Details
+      description: Get properties of the given activity.
+      operationId: activity_details_v1_activities_details__activity_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: activity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Activity Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/famxplor_api__activities__activities_db__Activity'
+        '404':
+          description: Activity not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Detail'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      tags:
+      - Activities
+components:
+  schemas:
+    famxplor_api__activities__activities_db__Activity:
+      properties:
+        activity_id:
+          type: string
+          title: Activity ID
+          description: Unique identifier for the activity.
+          examples:
+          - france-occitanie-montpellier-place-de-la-comedie
+        name:
+          type: string
+          title: Name
+          description: Name of the activity.
+          examples:
+          - Place de la Comédie
+        type:
+          type: string
+          title: Type
+          description: Type of activity, e.g., park, museum.
+          examples:
+          - square
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: URL
+          description: URL of the activity's web page.
+          examples:
+          - null
+        description:
+          type: string
+          title: Description
+          description: Description of the activity.
+          examples:
+          - The Place de la Comédie is a square in Montpellier, France, and a symbol of the city's prosperity in the 18th and 19th centuries. It features the Opéra Comédie, a theater built in 1888, and a statue of the Three Graces on a fountain. The square is one of the largest pedestrian areas in Europe and is surrounded by cafes, restaurants, and shops. It's a great place to start exploring the city, with nearby museums, such as the Musée Fabre, and a tramway stop that connects to other parts of the city. The square is also close to the Esplanade de Charles de Gaulle, a small park, and the Lycée Joffre, a former citadel
+        country:
+          type: string
+          title: Country
+          description: Country where the activity is located.
+          examples:
+          - France
+        region:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region
+          description: Region where the activity is located.
+          examples:
+          - Occitanie
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+          description: City where the activity is located.
+          examples:
+          - Montpellier
+        lat:
+          type: number
+          title: Latitude
+          description: Latitude of the activity's location.
+          examples:
+          - 43.60834
+        lon:
+          type: number
+          title: Longitude
+          description: Longitude of the activity's location.
+          examples:
+          - 3.88015
+        posts:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/famxplor_api__activities__activities_db__Post'
+            type: array
+          - type: 'null'
+          title: Posts
+          description: Posts that mention this activity.
+      type: object
+      required:
+      - activity_id
+      - name
+      - type
+      - description
+      - country
+      - lat
+      - lon
+      title: Activity
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Detail:
+      properties:
+        detail:
+          type: string
+          title: Detail
+      type: object
+      required:
+      - detail
+      title: Detail
+    famxplor_api__activities__activities_db__Post:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Title of the post.
+          examples:
+          - 'Montpellier with the family: 15 must-do things'
+        url:
+          type: string
+          title: URL
+          description: URL of the post's web page.
+          examples:
+          - https://www.enfant-en-voyage.com/montpellier-avec-enfants-en-famille/
+        what_did:
+          type: string
+          title: What Did
+          description: What the family did at this activity.
+          examples:
+          - We started our family walk on the Place de la Comédie, the heart of Montpellier and the life of the Montpelliérains
+        enjoyed:
+          type: string
+          title: Enjoyed
+          description: What the family enjoyed about this activity.
+          examples:
+          - The kids enjoyed saying hello to the Three Graces of the fountain and admiring the buildings around the square
+        favicon_img:
+          type: string
+          title: Favicon Image
+          description: URL of the site's favicon image.
+          examples:
+          - 40a2c305805f19362990a9920a5b96d7_favicon.png
+        thumb_img:
+          type: string
+          title: Thumbnail Image
+          description: URL of the post's thumbnail image.
+          examples:
+          - ea21dcd277a5a3e1503c38d4f0669534_thumb_md.jpg
+        lang:
+          type: string
+          title: Language
+          description: Language of the post.
+          examples:
+          - fr
+      type: object
+      required:
+      - name
+      - url
+      - what_did
+      - enjoyed
+      - favicon_img
+      - thumb_img
+      - lang
+      title: Post
+      description: Post mentioning an activity.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: api-key

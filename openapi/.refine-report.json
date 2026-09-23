@@ -1,0 +1,34 @@
+{
+  "provider": "famxplor-family-travel-api",
+  "sources": [
+    "_original/famxplor-family-travel-api-openapi.json"
+  ],
+  "outputs": [
+    "famxplor-family-travel-api-activities-api-openapi.yml",
+    "famxplor-family-travel-api-nearest-activities-api-openapi.yml",
+    "famxplor-family-travel-api-nearest-posts-api-openapi.yml",
+    "famxplor-family-travel-api-travel-time-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "famxplor-family-travel-api-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "famxplor-family-travel-api-openapi.json: tagged paths POST /v1/nearest-posts -> Nearest Posts",
+    "famxplor-family-travel-api-openapi.json: tagged paths POST /v1/nearest-activities -> Nearest Activities",
+    "famxplor-family-travel-api-openapi.json: tagged paths POST /v1/travel-time -> Travel Time",
+    "famxplor-family-travel-api-openapi.json: tagged paths GET /v1/activities/details/{activity_id} -> Activities",
+    "famxplor-family-travel-api-openapi.json: declared missing tag: Activities",
+    "famxplor-family-travel-api-openapi.json: declared missing tag: Nearest Activities",
+    "famxplor-family-travel-api-openapi.json: declared missing tag: Nearest Posts",
+    "famxplor-family-travel-api-openapi.json: declared missing tag: Travel Time",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "famxplor-family-travel-api-activities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "famxplor-family-travel-api-nearest-activities-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "famxplor-family-travel-api-nearest-posts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "famxplor-family-travel-api-travel-time-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

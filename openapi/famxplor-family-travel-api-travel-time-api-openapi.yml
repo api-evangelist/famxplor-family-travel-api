@@ -1,0 +1,138 @@
+openapi: 3.2.0
+info:
+  title: Famxplor Family Travel Travel Time API
+  description: Welcome to the Famxplor Family Travel API Developer Documentation!
+  contact:
+    email: hello@famxplor.com
+  version: 1.1.7
+tags:
+- name: Travel Time
+paths:
+  /v1/travel-time:
+    post:
+      summary: Travel Time
+      description: Calculates the travel time and distance between a series of geographic coordinates.
+      operationId: travel_time_v1_travel_time_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TravelTimeInput'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TravelTimeOutput'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+      tags:
+      - Travel Time
+components:
+  schemas:
+    TravelTimeInput:
+      properties:
+        locations:
+          items:
+            $ref: '#/components/schemas/LatLon'
+          type: array
+          minItems: 2
+          title: Locations for Route
+          description: A list of at least two locations (latitude, longitude pairs). The first is the start, the last is the end. Intermediate points act as waypoints.
+      type: object
+      required:
+      - locations
+      title: TravelTimeInput
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    LatLon:
+      properties:
+        lat:
+          type: number
+          maximum: 90.0
+          minimum: -90.0
+          title: Latitude
+          description: Latitude.
+          examples:
+          - 48.85341
+        lon:
+          type: number
+          maximum: 180.0
+          minimum: -180.0
+          title: Longitude
+          description: Longitude.
+          examples:
+          - 2.3488
+      type: object
+      required:
+      - lat
+      - lon
+      title: LatLon
+      description: Represents a geographical coordinate.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TravelTimeOutput:
+      properties:
+        time:
+          type: number
+          title: Time
+          description: Travel time in seconds.
+          examples:
+          - 2994.825
+        length_mi:
+          type: number
+          title: Length Mi
+          description: Travel length in miles.
+          examples:
+          - 30.301
+        length_km:
+          type: number
+          title: Length Km
+          description: Travel length in kilometers.
+          examples:
+          - 48.764
+      type: object
+      required:
+      - time
+      - length_mi
+      - length_km
+      title: TravelTimeOutput
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: api-key

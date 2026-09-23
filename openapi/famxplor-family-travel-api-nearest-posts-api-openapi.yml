@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  title: Famxplor Family Travel Nearest Posts API
+  description: Welcome to the Famxplor Family Travel API Developer Documentation!
+  contact:
+    email: hello@famxplor.com
+  version: 1.1.7
+tags:
+- name: Nearest Posts
+paths:
+  /v1/nearest-posts:
+    post:
+      summary: Nearest Posts
+      description: 'Retrieves posts related to family activities that are geographically close to the specified location.
+
+
+        **Maximum results per request**: 100 posts.'
+      operationId: nearest_posts_v1_nearest_posts_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NearestInput'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Posts'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+      tags:
+      - Nearest Posts
+components:
+  schemas:
+    famxplor_api__main__Post:
+      properties:
+        id:
+          type: string
+          title: ID
+          description: Unique identifier for the post.
+          examples:
+          - 6094748ff0f7b2fc7794cb2ac20d2cbe
+        title:
+          type: string
+          title: Title
+          description: Title of the post.
+          examples:
+          - 'Paris with kids in one day: 24-hour itinerary from a local'
+        url:
+          type: string
+          title: URL
+          description: URL of the post's web page.
+          examples:
+          - https://www.ourglobetrotters.com/paris-with-kids-in-one-day/
+        img_url:
+          type: string
+          title: Image URL
+          description: URL of the post's thumbnail image.
+          examples:
+          - https://app.famxplor.com/assets/img/6094748ff0f7b2fc7794cb2ac20d2cbe_thumb.jpg
+        lat:
+          type: number
+          title: Latitude
+          description: Latitude of the post's main location.
+          examples:
+          - 48.85341
+        lon:
+          type: number
+          title: Longitude
+          description: Longitude of the post's main location.
+          examples:
+          - 2.3488
+      type: object
+      required:
+      - id
+      - title
+      - url
+      - img_url
+      - lat
+      - lon
+      title: Post
+    Posts:
+      properties:
+        posts:
+          items:
+            $ref: '#/components/schemas/famxplor_api__main__Post'
+          type: array
+          title: Posts
+      type: object
+      required:
+      - posts
+      title: Posts
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    NearestInput:
+      properties:
+        lat:
+          type: number
+          maximum: 90.0
+          minimum: -90.0
+          title: Latitude
+          description: Latitude.
+          examples:
+          - 48.85341
+        lon:
+          type: number
+          maximum: 180.0
+          minimum: -180.0
+          title: Longitude
+          description: Longitude.
+          examples:
+          - 2.3488
+        max_distance:
+          type: number
+          maximum: 100000.0
+          minimum: 0.0
+          title: Max Distance
+          description: Maximum distance from the provided coordinates, in meters.
+          default: 1000
+      type: object
+      required:
+      - lat
+      - lon
+      title: NearestInput
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: api-key

@@ -1,0 +1,177 @@
+openapi: 3.2.0
+info:
+  title: Famxplor Family Travel Nearest Activities API
+  description: Welcome to the Famxplor Family Travel API Developer Documentation!
+  contact:
+    email: hello@famxplor.com
+  version: 1.1.7
+tags:
+- name: Nearest Activities
+paths:
+  /v1/nearest-activities:
+    post:
+      summary: Nearest Activities
+      description: 'Retrieves family activities that are geographically close to the specified location.
+
+
+        **Maximum results per request**: 100 activities.'
+      operationId: nearest_activities_v1_nearest_activities_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NearestInput'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activities'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+      tags:
+      - Nearest Activities
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    NearestInput:
+      properties:
+        lat:
+          type: number
+          maximum: 90.0
+          minimum: -90.0
+          title: Latitude
+          description: Latitude.
+          examples:
+          - 48.85341
+        lon:
+          type: number
+          maximum: 180.0
+          minimum: -180.0
+          title: Longitude
+          description: Longitude.
+          examples:
+          - 2.3488
+        max_distance:
+          type: number
+          maximum: 100000.0
+          minimum: 0.0
+          title: Max Distance
+          description: Maximum distance from the provided coordinates, in meters.
+          default: 1000
+      type: object
+      required:
+      - lat
+      - lon
+      title: NearestInput
+    Activities:
+      properties:
+        activities:
+          items:
+            $ref: '#/components/schemas/famxplor_api__main__Activity'
+          type: array
+          title: Activities
+      type: object
+      required:
+      - activities
+      title: Activities
+    famxplor_api__main__Activity:
+      properties:
+        id:
+          type: string
+          title: ID
+          description: Unique identifier for the activity.
+          examples:
+          - france-normandy-caen-suisse-normande
+        title:
+          type: string
+          title: Title
+          description: Name of the activity.
+          examples:
+          - 'Suisse Normande (Normandy with kids: 16 kids'' activities in a row!)'
+        url:
+          type: string
+          title: URL
+          description: URL of the activity's web page.
+          examples:
+          - https://www.reiskoe.nl/en/normandy-with-kids/
+        img_url:
+          type: string
+          title: Image URL
+          description: URL of the activity's thumbnail image.
+          examples:
+          - https://app.famxplor.com/assets/img/fdc4c3582bce7e3af01725b0f6494d85_thumb_md.jpg
+        lat:
+          type: number
+          title: Latitude
+          description: Latitude of the activity's location.
+          examples:
+          - 49.18433
+        lon:
+          type: number
+          title: Longitude
+          description: Longitude of the activity's location.
+          examples:
+          - -0.36118
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+          description: Tags associated with the activity
+          examples:
+          - - museum
+          - - hot spring
+            - park
+      type: object
+      required:
+      - id
+      - title
+      - url
+      - img_url
+      - lat
+      - lon
+      - tags
+      title: Activity
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: api-key
