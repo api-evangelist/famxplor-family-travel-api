@@ -45,6 +45,70 @@ paths:
       - Activities
 components:
   schemas:
+    famxplor_api__activities__activities_db__Post:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Title of the post.
+          examples:
+          - 'Montpellier with the family: 15 must-do things'
+        url:
+          type: string
+          title: URL
+          description: URL of the post's web page.
+          examples:
+          - https://www.enfant-en-voyage.com/montpellier-avec-enfants-en-famille/
+        what_did:
+          type: string
+          title: What Did
+          description: What the family did at this activity.
+          examples:
+          - We started our family walk on the Place de la Comédie, the heart of Montpellier and the life of the Montpelliérains
+        enjoyed:
+          type: string
+          title: Enjoyed
+          description: What the family enjoyed about this activity.
+          examples:
+          - The kids enjoyed saying hello to the Three Graces of the fountain and admiring the buildings around the square
+        favicon_img:
+          type: string
+          title: Favicon Image
+          description: URL of the site's favicon image.
+          examples:
+          - 40a2c305805f19362990a9920a5b96d7_favicon.png
+        thumb_img:
+          type: string
+          title: Thumbnail Image
+          description: URL of the post's thumbnail image.
+          examples:
+          - ea21dcd277a5a3e1503c38d4f0669534_thumb_md.jpg
+        lang:
+          type: string
+          title: Language
+          description: Language of the post.
+          examples:
+          - fr
+      type: object
+      required:
+      - name
+      - url
+      - what_did
+      - enjoyed
+      - favicon_img
+      - thumb_img
+      - lang
+      title: Post
+      description: Post mentioning an activity.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     famxplor_api__activities__activities_db__Activity:
       properties:
         activity_id:
@@ -131,79 +195,6 @@ components:
       - lat
       - lon
       title: Activity
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Detail:
-      properties:
-        detail:
-          type: string
-          title: Detail
-      type: object
-      required:
-      - detail
-      title: Detail
-    famxplor_api__activities__activities_db__Post:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: Title of the post.
-          examples:
-          - 'Montpellier with the family: 15 must-do things'
-        url:
-          type: string
-          title: URL
-          description: URL of the post's web page.
-          examples:
-          - https://www.enfant-en-voyage.com/montpellier-avec-enfants-en-famille/
-        what_did:
-          type: string
-          title: What Did
-          description: What the family did at this activity.
-          examples:
-          - We started our family walk on the Place de la Comédie, the heart of Montpellier and the life of the Montpelliérains
-        enjoyed:
-          type: string
-          title: Enjoyed
-          description: What the family enjoyed about this activity.
-          examples:
-          - The kids enjoyed saying hello to the Three Graces of the fountain and admiring the buildings around the square
-        favicon_img:
-          type: string
-          title: Favicon Image
-          description: URL of the site's favicon image.
-          examples:
-          - 40a2c305805f19362990a9920a5b96d7_favicon.png
-        thumb_img:
-          type: string
-          title: Thumbnail Image
-          description: URL of the post's thumbnail image.
-          examples:
-          - ea21dcd277a5a3e1503c38d4f0669534_thumb_md.jpg
-        lang:
-          type: string
-          title: Language
-          description: Language of the post.
-          examples:
-          - fr
-      type: object
-      required:
-      - name
-      - url
-      - what_did
-      - enjoyed
-      - favicon_img
-      - thumb_img
-      - lang
-      title: Post
-      description: Post mentioning an activity.
     ValidationError:
       properties:
         loc:
@@ -225,6 +216,15 @@ components:
       - msg
       - type
       title: ValidationError
+    Detail:
+      properties:
+        detail:
+          type: string
+          title: Detail
+      type: object
+      required:
+      - detail
+      title: Detail
   securitySchemes:
     APIKeyHeader:
       type: apiKey

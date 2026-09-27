@@ -38,28 +38,6 @@ paths:
       - Travel Time
 components:
   schemas:
-    TravelTimeInput:
-      properties:
-        locations:
-          items:
-            $ref: '#/components/schemas/LatLon'
-          type: array
-          minItems: 2
-          title: Locations for Route
-          description: A list of at least two locations (latitude, longitude pairs). The first is the start, the last is the end. Intermediate points act as waypoints.
-      type: object
-      required:
-      - locations
-      title: TravelTimeInput
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     LatLon:
       properties:
         lat:
@@ -105,6 +83,28 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TravelTimeInput:
+      properties:
+        locations:
+          items:
+            $ref: '#/components/schemas/LatLon'
+          type: array
+          minItems: 2
+          title: Locations for Route
+          description: A list of at least two locations (latitude, longitude pairs). The first is the start, the last is the end. Intermediate points act as waypoints.
+      type: object
+      required:
+      - locations
+      title: TravelTimeInput
     TravelTimeOutput:
       properties:
         time:
