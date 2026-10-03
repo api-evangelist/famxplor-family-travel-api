@@ -38,73 +38,6 @@ paths:
       - Travel Time
 components:
   schemas:
-    LatLon:
-      properties:
-        lat:
-          type: number
-          maximum: 90.0
-          minimum: -90.0
-          title: Latitude
-          description: Latitude.
-          examples:
-          - 48.85341
-        lon:
-          type: number
-          maximum: 180.0
-          minimum: -180.0
-          title: Longitude
-          description: Longitude.
-          examples:
-          - 2.3488
-      type: object
-      required:
-      - lat
-      - lon
-      title: LatLon
-      description: Represents a geographical coordinate.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TravelTimeInput:
-      properties:
-        locations:
-          items:
-            $ref: '#/components/schemas/LatLon'
-          type: array
-          minItems: 2
-          title: Locations for Route
-          description: A list of at least two locations (latitude, longitude pairs). The first is the start, the last is the end. Intermediate points act as waypoints.
-      type: object
-      required:
-      - locations
-      title: TravelTimeInput
     TravelTimeOutput:
       properties:
         time:
@@ -131,6 +64,73 @@ components:
       - length_mi
       - length_km
       title: TravelTimeOutput
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TravelTimeInput:
+      properties:
+        locations:
+          items:
+            $ref: '#/components/schemas/LatLon'
+          type: array
+          minItems: 2
+          title: Locations for Route
+          description: A list of at least two locations (latitude, longitude pairs). The first is the start, the last is the end. Intermediate points act as waypoints.
+      type: object
+      required:
+      - locations
+      title: TravelTimeInput
+    LatLon:
+      properties:
+        lat:
+          type: number
+          maximum: 90.0
+          minimum: -90.0
+          title: Latitude
+          description: Latitude.
+          examples:
+          - 48.85341
+        lon:
+          type: number
+          maximum: 180.0
+          minimum: -180.0
+          title: Longitude
+          description: Longitude.
+          examples:
+          - 2.3488
+      type: object
+      required:
+      - lat
+      - lon
+      title: LatLon
+      description: Represents a geographical coordinate.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     APIKeyHeader:
       type: apiKey

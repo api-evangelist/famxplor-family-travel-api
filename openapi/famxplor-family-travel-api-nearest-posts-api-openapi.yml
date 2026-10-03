@@ -41,73 +41,6 @@ paths:
       - Nearest Posts
 components:
   schemas:
-    famxplor_api__main__Post:
-      properties:
-        id:
-          type: string
-          title: ID
-          description: Unique identifier for the post.
-          examples:
-          - 6094748ff0f7b2fc7794cb2ac20d2cbe
-        title:
-          type: string
-          title: Title
-          description: Title of the post.
-          examples:
-          - 'Paris with kids in one day: 24-hour itinerary from a local'
-        url:
-          type: string
-          title: URL
-          description: URL of the post's web page.
-          examples:
-          - https://www.ourglobetrotters.com/paris-with-kids-in-one-day/
-        img_url:
-          type: string
-          title: Image URL
-          description: URL of the post's thumbnail image.
-          examples:
-          - https://app.famxplor.com/assets/img/6094748ff0f7b2fc7794cb2ac20d2cbe_thumb.jpg
-        lat:
-          type: number
-          title: Latitude
-          description: Latitude of the post's main location.
-          examples:
-          - 48.85341
-        lon:
-          type: number
-          title: Longitude
-          description: Longitude of the post's main location.
-          examples:
-          - 2.3488
-      type: object
-      required:
-      - id
-      - title
-      - url
-      - img_url
-      - lat
-      - lon
-      title: Post
-    Posts:
-      properties:
-        posts:
-          items:
-            $ref: '#/components/schemas/famxplor_api__main__Post'
-          type: array
-          title: Posts
-      type: object
-      required:
-      - posts
-      title: Posts
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -159,6 +92,73 @@ components:
       - lat
       - lon
       title: NearestInput
+    Posts:
+      properties:
+        posts:
+          items:
+            $ref: '#/components/schemas/famxplor_api__main__Post'
+          type: array
+          title: Posts
+      type: object
+      required:
+      - posts
+      title: Posts
+    famxplor_api__main__Post:
+      properties:
+        id:
+          type: string
+          title: ID
+          description: Unique identifier for the post.
+          examples:
+          - 6094748ff0f7b2fc7794cb2ac20d2cbe
+        title:
+          type: string
+          title: Title
+          description: Title of the post.
+          examples:
+          - 'Paris with kids in one day: 24-hour itinerary from a local'
+        url:
+          type: string
+          title: URL
+          description: URL of the post's web page.
+          examples:
+          - https://www.ourglobetrotters.com/paris-with-kids-in-one-day/
+        img_url:
+          type: string
+          title: Image URL
+          description: URL of the post's thumbnail image.
+          examples:
+          - https://app.famxplor.com/assets/img/6094748ff0f7b2fc7794cb2ac20d2cbe_thumb.jpg
+        lat:
+          type: number
+          title: Latitude
+          description: Latitude of the post's main location.
+          examples:
+          - 48.85341
+        lon:
+          type: number
+          title: Longitude
+          description: Longitude of the post's main location.
+          examples:
+          - 2.3488
+      type: object
+      required:
+      - id
+      - title
+      - url
+      - img_url
+      - lat
+      - lon
+      title: Post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     APIKeyHeader:
       type: apiKey
