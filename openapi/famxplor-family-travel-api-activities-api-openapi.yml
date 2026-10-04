@@ -45,6 +45,15 @@ paths:
       - Activities
 components:
   schemas:
+    Detail:
+      properties:
+        detail:
+          type: string
+          title: Detail
+      type: object
+      required:
+      - detail
+      title: Detail
     famxplor_api__activities__activities_db__Activity:
       properties:
         activity_id:
@@ -152,6 +161,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     famxplor_api__activities__activities_db__Post:
       properties:
         name:
@@ -207,24 +225,6 @@ components:
       - lang
       title: Post
       description: Post mentioning an activity.
-    Detail:
-      properties:
-        detail:
-          type: string
-          title: Detail
-      type: object
-      required:
-      - detail
-      title: Detail
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     APIKeyHeader:
       type: apiKey

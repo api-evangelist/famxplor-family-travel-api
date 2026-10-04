@@ -41,6 +41,36 @@ paths:
       - Nearest Activities
 components:
   schemas:
+    NearestInput:
+      properties:
+        lat:
+          type: number
+          maximum: 90.0
+          minimum: -90.0
+          title: Latitude
+          description: Latitude.
+          examples:
+          - 48.85341
+        lon:
+          type: number
+          maximum: 180.0
+          minimum: -180.0
+          title: Longitude
+          description: Longitude.
+          examples:
+          - 2.3488
+        max_distance:
+          type: number
+          maximum: 100000.0
+          minimum: 0.0
+          title: Max Distance
+          description: Maximum distance from the provided coordinates, in meters.
+          default: 1000
+      type: object
+      required:
+      - lat
+      - lon
+      title: NearestInput
     Activities:
       properties:
         activities:
@@ -73,36 +103,6 @@ components:
       - msg
       - type
       title: ValidationError
-    NearestInput:
-      properties:
-        lat:
-          type: number
-          maximum: 90.0
-          minimum: -90.0
-          title: Latitude
-          description: Latitude.
-          examples:
-          - 48.85341
-        lon:
-          type: number
-          maximum: 180.0
-          minimum: -180.0
-          title: Longitude
-          description: Longitude.
-          examples:
-          - 2.3488
-        max_distance:
-          type: number
-          maximum: 100000.0
-          minimum: 0.0
-          title: Max Distance
-          description: Maximum distance from the provided coordinates, in meters.
-          default: 1000
-      type: object
-      required:
-      - lat
-      - lon
-      title: NearestInput
     famxplor_api__main__Activity:
       properties:
         id:
