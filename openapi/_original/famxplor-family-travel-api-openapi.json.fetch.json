@@ -1,0 +1,12 @@
+{
+ "url": "https://api.famxplor.com/openapi.json",
+ "requested_url": "https://api.famxplor.com/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 14315,
+ "sha256": "f363d44659164df5ceb5aad6c9a8ccd4deca820a1d42b5494761cbbaf59f8599",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
