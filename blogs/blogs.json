@@ -2,6 +2,13 @@
   "repo": "famxplor-family-travel-api",
   "feeds": [
     {
+      "source": "https://famxplor.com/blog",
+      "feed_url": "https://famxplor.com/blog",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
       "source": "https://famxplor.com/login",
       "feed_url": "https://famxplor.com/login",
       "title": "",
@@ -9,7 +16,7 @@
       "method": "none"
     }
   ],
-  "fetched": "2026-10-03T12:30:02Z",
+  "fetched": "2026-10-10T13:15:00Z",
   "post_count": 8,
   "agent_pulled": "2026-06-27",
   "feed_nature": "vendor-blog",
