@@ -38,6 +38,32 @@ paths:
       - Travel Time
 components:
   schemas:
+    TravelTimeOutput:
+      properties:
+        time:
+          type: number
+          title: Time
+          description: Travel time in seconds.
+          examples:
+          - 2994.825
+        length_mi:
+          type: number
+          title: Length Mi
+          description: Travel length in miles.
+          examples:
+          - 30.301
+        length_km:
+          type: number
+          title: Length Km
+          description: Travel length in kilometers.
+          examples:
+          - 48.764
+      type: object
+      required:
+      - time
+      - length_mi
+      - length_km
+      title: TravelTimeOutput
     ValidationError:
       properties:
         loc:
@@ -59,6 +85,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     LatLon:
       properties:
         lat:
@@ -96,41 +131,6 @@ components:
       required:
       - locations
       title: TravelTimeInput
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TravelTimeOutput:
-      properties:
-        time:
-          type: number
-          title: Time
-          description: Travel time in seconds.
-          examples:
-          - 2994.825
-        length_mi:
-          type: number
-          title: Length Mi
-          description: Travel length in miles.
-          examples:
-          - 30.301
-        length_km:
-          type: number
-          title: Length Km
-          description: Travel length in kilometers.
-          examples:
-          - 48.764
-      type: object
-      required:
-      - time
-      - length_mi
-      - length_km
-      title: TravelTimeOutput
   securitySchemes:
     APIKeyHeader:
       type: apiKey

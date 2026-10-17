@@ -41,6 +41,47 @@ paths:
       - Nearest Posts
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Posts:
+      properties:
+        posts:
+          items:
+            $ref: '#/components/schemas/famxplor_api__main__Post'
+          type: array
+          title: Posts
+      type: object
+      required:
+      - posts
+      title: Posts
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     NearestInput:
       properties:
         lat:
@@ -118,47 +159,6 @@ components:
       - lat
       - lon
       title: Post
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Posts:
-      properties:
-        posts:
-          items:
-            $ref: '#/components/schemas/famxplor_api__main__Post'
-          type: array
-          title: Posts
-      type: object
-      required:
-      - posts
-      title: Posts
   securitySchemes:
     APIKeyHeader:
       type: apiKey
