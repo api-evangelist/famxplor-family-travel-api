@@ -230,3 +230,9 @@ components:
       type: apiKey
       in: header
       name: api-key
+x-provenance:
+  method: harvested
+  publisher: Famxplor Family Travel API
+  source: https://api.famxplor.com/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
