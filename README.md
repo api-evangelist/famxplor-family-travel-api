@@ -1,4 +1,4 @@
-# Famxplor Family Travel API (famxplor-family-travel-api)
+# Famxplor Family Travel API
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,53 +66,129 @@
 
 The First API 100% Dedicated to Family Travel. Designed for developers, travel apps, and businesses, the Famxplor API delivers personalized, family-focused recommendations tested and loved by real families. Seamlessly integrate to provide location-based activities, global travel ideas, and engaging content that enhances user experiences and engagement. Famxplor offers tiered pricing from Starter ($4.99/mo) to Enterprise (custom), with a 14-day free trial.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/famxplor-family-travel-api/refs/heads/main/apis.yml)
+**Areas:** Activities · Family · Travel · Artificial Intelligence · MCP
 
-## Scope
+## Famxplor Family Travel API on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Famxplor Family Travel API is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/famxplor-family-travel-api/](https://apis.io/providers/famxplor-family-travel-api/)** — or go straight to one of the APIs or properties below.
 
-## Tags:
+### APIs (4)
 
- - Activities, Family, Travel, AI, MCP
+- [Famxplor Family Travel API Activities API](https://apis.io/apis/famxplor-family-travel-api/famxplor-family-travel-api-activities-api/) — The Activities API from Famxplor Family Travel API — 1 operation(s) for activities.
+- [Famxplor Family Travel API Nearest Activities API](https://apis.io/apis/famxplor-family-travel-api/famxplor-family-travel-api-nearest-activities-api/) — The Nearest Activities API from Famxplor Family Travel API — 1 operation(s) for nearest activities.
+- [Famxplor Family Travel API Nearest Posts API](https://apis.io/apis/famxplor-family-travel-api/famxplor-family-travel-api-nearest-posts-api/) — The Nearest Posts API from Famxplor Family Travel API — 1 operation(s) for nearest posts.
+- [Famxplor Family Travel API Travel Time API](https://apis.io/apis/famxplor-family-travel-api/famxplor-family-travel-api-travel-time-api/) — The Travel Time API from Famxplor Family Travel API — 1 operation(s) for travel time.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2024-12-18
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### Famxplor Family Travel API
+Model Context Protocol servers that expose the API to agents.
 
-The First API 100% Dedicated to Family Travel. Designed for developers, travel apps, and businesses, the Famxplor API delivers personalized, family-focused recommendations tested and loved by real families. Seamlessly integrate to provide location-based activities, global travel ideas, and engaging content that enhances user experiences and engagement. The API is RESTful and is compatible with AI tools and MCP (Model Context Protocol) servers.
+- [famxplor](https://apis.io/servers/famxplor-family-travel-api/famxplor/)
 
-**Human URL:** [https://famxplor.com/](https://famxplor.com/)
+#### Agentic access (1)
 
-#### Tags:
+Which operations an agent can call, which act, and which need a human in the loop.
 
- - Activities, Family, Travel
+- [Famxplor Family Travel Api Agentic Access](https://apis.io/agentic-access/famxplor-family-travel-api/famxplor-family-travel-api-agentic-access/)
 
-#### Properties
+#### Overlays (1)
 
-- [Documentation](https://famxplor.com/api)
-- [Pricing](https://famxplor.com/pricing)
-- [Sign Up](https://famxplor.com/login)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-## Common Properties
+- [Famxplor Family Travel Api Openapi Overlay](https://apis.io/overlays/famxplor-family-travel-api/famxplor-family-travel-api-openapi-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Famxplor Family Travel Api Authentication](https://apis.io/security/famxplor-family-travel-api/famxplor-family-travel-api-authentication/)
+- [Famxplor Family Travel Api Domain Security](https://apis.io/security/famxplor-family-travel-api/famxplor-family-travel-api-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Famxplor Family Travel Api Plans Pricing](https://apis.io/plans/famxplor-family-travel-api/famxplor-family-travel-api-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Famxplor Family Travel Api Rate Limits](https://apis.io/rate-limits/famxplor-family-travel-api/famxplor-family-travel-api-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Famxplor Family Travel Api Finops](https://apis.io/finops/famxplor-family-travel-api/famxplor-family-travel-api-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://famxplor.com/)
 - [Documentation](https://famxplor.com/api)
+- [API reference](https://api.famxplor.com/redoc)
 - [Pricing](https://famxplor.com/pricing)
-- [Sign Up](https://famxplor.com/login)
 - [Blog](https://famxplor.com/blog)
-- [Privacy Policy](https://famxplor.com/legal/privacy-policy/)
-- [Terms of Service](https://famxplor.com/legal/terms-of-service/)
+- [Terms of service](https://famxplor.com/legal/terms-of-service/)
+- [Privacy policy](https://famxplor.com/legal/privacy-policy/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
+**Kin Score 46.3** — developing · rubric 0.25.0 · scored 2026-10-23
 
-**Email:** kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 65.0 |
+| Contract quality | 51.7 |
+| Contract governance | 4.5 |
+| Operational transparency | 31.6 |
+| Developer ergonomics | 32.7 |
+| Access clarity | 76.3 |
+
+**Agent readiness 26.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | documented (partial credit) |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 22.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/famxplor-family-travel-api/](https://apis.io/providers/famxplor-family-travel-api/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Famxplor Family Travel API: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/famxplor-family-travel-api/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
