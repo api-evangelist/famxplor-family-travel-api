@@ -1,0 +1,89 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://famxplor.com/pricing
+sources:
+- https://famxplor.com/pricing
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T161713
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+published: true
+note: Tiered API plans with 14-day free trial; Enterprise is custom/contact.
+plan_count: 4
+currency: USD
+plans:
+- name: Starter
+  price_text: $4.99 / month
+  price: 4.99
+  currency: USD
+  period: month
+  unit: API calls
+  included_quota: 200 API Calls / Month
+- name: Pro
+  price_text: $24.99 / month
+  price: 24.99
+  currency: USD
+  period: month
+  unit: API calls
+  included_quota: 1,000 API Calls / Month
+- name: Business
+  price_text: $124.99 / month
+  price: 124.99
+  currency: USD
+  period: month
+  unit: API calls
+  included_quota: 5,000 API Calls / Month
+- name: Enterprise
+  price_text: Custom
+  period: none
+  included_quota: Tailored API Call Volume, Premium SLAs, Custom Integration & Onboarding
+rate_limit_statements:
+- 200 API Calls / Month
+- 1,000 API Calls / Month
+- 5,000 API Calls / Month
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units:
+  - request
+  plans:
+  - name: Starter
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Pro
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Business
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
